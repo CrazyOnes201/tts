@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- http部分配置如何拦截用户请求。auto-config='true'将自动配置几种常用的权限控制机制，包括form, anonymous, rememberMe -->
+    <http auto-config='true'>
+        <!-- 设置URL权限 -->
+        <!-- Spring Security采用的是一种就近原则，就是说当用户访问的url资源满足多个intercepter-url时，系统将使用第一个符合条件的intercept-url进行权限控制 -->
+        <!-- 此处权限的名称必须以ROLE_作为前缀，如果不这样做，在启动Web容器的时候就将报错，错误如下图-->
+        <intercept-url pattern="/admin.jsp" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/**" access="ROLE_USER"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <!-- 创建一个用户，用户名为admin，密码admin，分配ROLE_USER、ROLE_ADMIN两个角色 -->
+                <user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN"/>
+                <!-- 创建一个用户，用户名为user，密码user，分配ROLE_USER两个角色 -->
+                <user name="user" password="user" authorities="ROLE_USER"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>
