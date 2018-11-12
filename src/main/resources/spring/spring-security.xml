@@ -1,30 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/security
-        http://www.springframework.org/schema/security/spring-security.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 
-    <!-- http部分配置如何拦截用户请求。auto-config='true'将自动配置几种常用的权限控制机制，包括form, anonymous, rememberMe -->
-    <http auto-config='true'>
-        <!-- 设置URL权限 -->
-        <!-- Spring Security采用的是一种就近原则，就是说当用户访问的url资源满足多个intercepter-url时，系统将使用第一个符合条件的intercept-url进行权限控制 -->
-        <!-- 此处权限的名称必须以ROLE_作为前缀，如果不这样做，在启动Web容器的时候就将报错，错误如下图-->
-        <intercept-url pattern="/admin.jsp" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/**" access="ROLE_USER"/>
-    </http>
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" /><!-- 在这里注意下，access后面直接写"ROLE_ADMIN"这里会提示出错，就是找不到这种ROLE_ADMIN这种类型 -->
+        <security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')" />
+    </security:http>
+    <!-- 在这里也是一个大坑，查询网上的文章，这里都是引用的实现了UserDetailsService的类 -->
+    <bean id="MyUserService" class="com.dbsd6th.security.SecurityProvider" />
+    <security:authentication-manager>
+        <security:authentication-provider ref="MyUserService">
+        </security:authentication-provider>
+    </security:authentication-manager>
 
-    <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <!-- 创建一个用户，用户名为admin，密码admin，分配ROLE_USER、ROLE_ADMIN两个角色 -->
-                <user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN"/>
-                <!-- 创建一个用户，用户名为user，密码user，分配ROLE_USER两个角色 -->
-                <user name="user" password="user" authorities="ROLE_USER"/>
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
-
-</beans:beans>
+</beans>
