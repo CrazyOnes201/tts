@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dbsd6th.dao.RouteMapper" >
+  <resultMap id="BaseResultMap" type="com.dbsd6th.entity.Route" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="train_id" property="trainId" jdbcType="VARCHAR" />
+    <result column="station_name" property="stationName" jdbcType="INTEGER" />
+    <result column="route_seq" property="routeSeq" jdbcType="INTEGER" />
+    <result column="next_distance" property="nextDistance" jdbcType="INTEGER" />
+    <result column="arrive_time" property="arriveTime" jdbcType="TIMESTAMP" />
+    <result column="departure_time" property="departureTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, train_id, station_name, route_seq, next_distance, arrive_time, departure_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from route
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from route
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dbsd6th.entity.Route" >
+    insert into route (id, train_id, station_name, 
+      route_seq, next_distance, arrive_time, 
+      departure_time)
+    values (#{id,jdbcType=INTEGER}, #{trainId,jdbcType=VARCHAR}, #{stationName,jdbcType=INTEGER}, 
+      #{routeSeq,jdbcType=INTEGER}, #{nextDistance,jdbcType=INTEGER}, #{arriveTime,jdbcType=TIMESTAMP}, 
+      #{departureTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dbsd6th.entity.Route" >
+    insert into route
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="trainId != null" >
+        train_id,
+      </if>
+      <if test="stationName != null" >
+        station_name,
+      </if>
+      <if test="routeSeq != null" >
+        route_seq,
+      </if>
+      <if test="nextDistance != null" >
+        next_distance,
+      </if>
+      <if test="arriveTime != null" >
+        arrive_time,
+      </if>
+      <if test="departureTime != null" >
+        departure_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="trainId != null" >
+        #{trainId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationName != null" >
+        #{stationName,jdbcType=INTEGER},
+      </if>
+      <if test="routeSeq != null" >
+        #{routeSeq,jdbcType=INTEGER},
+      </if>
+      <if test="nextDistance != null" >
+        #{nextDistance,jdbcType=INTEGER},
+      </if>
+      <if test="arriveTime != null" >
+        #{arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departureTime != null" >
+        #{departureTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dbsd6th.entity.Route" >
+    update route
+    <set >
+      <if test="trainId != null" >
+        train_id = #{trainId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationName != null" >
+        station_name = #{stationName,jdbcType=INTEGER},
+      </if>
+      <if test="routeSeq != null" >
+        route_seq = #{routeSeq,jdbcType=INTEGER},
+      </if>
+      <if test="nextDistance != null" >
+        next_distance = #{nextDistance,jdbcType=INTEGER},
+      </if>
+      <if test="arriveTime != null" >
+        arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departureTime != null" >
+        departure_time = #{departureTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dbsd6th.entity.Route" >
+    update route
+    set train_id = #{trainId,jdbcType=VARCHAR},
+      station_name = #{stationName,jdbcType=INTEGER},
+      route_seq = #{routeSeq,jdbcType=INTEGER},
+      next_distance = #{nextDistance,jdbcType=INTEGER},
+      arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
+      departure_time = #{departureTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

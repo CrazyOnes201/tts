@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dbsd6th.dao.TicketCountMapper" >
+  <resultMap id="BaseResultMap" type="com.dbsd6th.entity.TicketCount" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="train_id" property="trainId" jdbcType="VARCHAR" />
+    <result column="ticket_remain" property="ticketRemain" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="stand_remain" property="standRemain" jdbcType="INTEGER" />
+    <result column="second_remain" property="secondRemain" jdbcType="INTEGER" />
+    <result column="first_remain" property="firstRemain" jdbcType="INTEGER" />
+    <result column="business_remain" property="businessRemain" jdbcType="INTEGER" />
+    <result column="soft_sleeper_remain" property="softSleeperRemain" jdbcType="INTEGER" />
+    <result column="advanced_soft_remain" property="advancedSoftRemain" jdbcType="INTEGER" />
+    <result column="highspeed_sleeper_remain" property="highspeedSleeperRemain" jdbcType="INTEGER" />
+    <result column="hard_sleeper_remain" property="hardSleeperRemain" jdbcType="INTEGER" />
+    <result column="soft_remain" property="softRemain" jdbcType="INTEGER" />
+    <result column="hard_remain" property="hardRemain" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, train_id, ticket_remain, time, stand_remain, second_remain, first_remain, business_remain, 
+    soft_sleeper_remain, advanced_soft_remain, highspeed_sleeper_remain, hard_sleeper_remain, 
+    soft_remain, hard_remain
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ticket_count
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ticket_count
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dbsd6th.entity.TicketCount" >
+    insert into ticket_count (id, train_id, ticket_remain, 
+      time, stand_remain, second_remain, 
+      first_remain, business_remain, soft_sleeper_remain, 
+      advanced_soft_remain, highspeed_sleeper_remain, 
+      hard_sleeper_remain, soft_remain, hard_remain
+      )
+    values (#{id,jdbcType=INTEGER}, #{trainId,jdbcType=VARCHAR}, #{ticketRemain,jdbcType=INTEGER}, 
+      #{time,jdbcType=TIMESTAMP}, #{standRemain,jdbcType=INTEGER}, #{secondRemain,jdbcType=INTEGER}, 
+      #{firstRemain,jdbcType=INTEGER}, #{businessRemain,jdbcType=INTEGER}, #{softSleeperRemain,jdbcType=INTEGER}, 
+      #{advancedSoftRemain,jdbcType=INTEGER}, #{highspeedSleeperRemain,jdbcType=INTEGER}, 
+      #{hardSleeperRemain,jdbcType=INTEGER}, #{softRemain,jdbcType=INTEGER}, #{hardRemain,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dbsd6th.entity.TicketCount" >
+    insert into ticket_count
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="trainId != null" >
+        train_id,
+      </if>
+      <if test="ticketRemain != null" >
+        ticket_remain,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="standRemain != null" >
+        stand_remain,
+      </if>
+      <if test="secondRemain != null" >
+        second_remain,
+      </if>
+      <if test="firstRemain != null" >
+        first_remain,
+      </if>
+      <if test="businessRemain != null" >
+        business_remain,
+      </if>
+      <if test="softSleeperRemain != null" >
+        soft_sleeper_remain,
+      </if>
+      <if test="advancedSoftRemain != null" >
+        advanced_soft_remain,
+      </if>
+      <if test="highspeedSleeperRemain != null" >
+        highspeed_sleeper_remain,
+      </if>
+      <if test="hardSleeperRemain != null" >
+        hard_sleeper_remain,
+      </if>
+      <if test="softRemain != null" >
+        soft_remain,
+      </if>
+      <if test="hardRemain != null" >
+        hard_remain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="trainId != null" >
+        #{trainId,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketRemain != null" >
+        #{ticketRemain,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standRemain != null" >
+        #{standRemain,jdbcType=INTEGER},
+      </if>
+      <if test="secondRemain != null" >
+        #{secondRemain,jdbcType=INTEGER},
+      </if>
+      <if test="firstRemain != null" >
+        #{firstRemain,jdbcType=INTEGER},
+      </if>
+      <if test="businessRemain != null" >
+        #{businessRemain,jdbcType=INTEGER},
+      </if>
+      <if test="softSleeperRemain != null" >
+        #{softSleeperRemain,jdbcType=INTEGER},
+      </if>
+      <if test="advancedSoftRemain != null" >
+        #{advancedSoftRemain,jdbcType=INTEGER},
+      </if>
+      <if test="highspeedSleeperRemain != null" >
+        #{highspeedSleeperRemain,jdbcType=INTEGER},
+      </if>
+      <if test="hardSleeperRemain != null" >
+        #{hardSleeperRemain,jdbcType=INTEGER},
+      </if>
+      <if test="softRemain != null" >
+        #{softRemain,jdbcType=INTEGER},
+      </if>
+      <if test="hardRemain != null" >
+        #{hardRemain,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dbsd6th.entity.TicketCount" >
+    update ticket_count
+    <set >
+      <if test="trainId != null" >
+        train_id = #{trainId,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketRemain != null" >
+        ticket_remain = #{ticketRemain,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standRemain != null" >
+        stand_remain = #{standRemain,jdbcType=INTEGER},
+      </if>
+      <if test="secondRemain != null" >
+        second_remain = #{secondRemain,jdbcType=INTEGER},
+      </if>
+      <if test="firstRemain != null" >
+        first_remain = #{firstRemain,jdbcType=INTEGER},
+      </if>
+      <if test="businessRemain != null" >
+        business_remain = #{businessRemain,jdbcType=INTEGER},
+      </if>
+      <if test="softSleeperRemain != null" >
+        soft_sleeper_remain = #{softSleeperRemain,jdbcType=INTEGER},
+      </if>
+      <if test="advancedSoftRemain != null" >
+        advanced_soft_remain = #{advancedSoftRemain,jdbcType=INTEGER},
+      </if>
+      <if test="highspeedSleeperRemain != null" >
+        highspeed_sleeper_remain = #{highspeedSleeperRemain,jdbcType=INTEGER},
+      </if>
+      <if test="hardSleeperRemain != null" >
+        hard_sleeper_remain = #{hardSleeperRemain,jdbcType=INTEGER},
+      </if>
+      <if test="softRemain != null" >
+        soft_remain = #{softRemain,jdbcType=INTEGER},
+      </if>
+      <if test="hardRemain != null" >
+        hard_remain = #{hardRemain,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dbsd6th.entity.TicketCount" >
+    update ticket_count
+    set train_id = #{trainId,jdbcType=VARCHAR},
+      ticket_remain = #{ticketRemain,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      stand_remain = #{standRemain,jdbcType=INTEGER},
+      second_remain = #{secondRemain,jdbcType=INTEGER},
+      first_remain = #{firstRemain,jdbcType=INTEGER},
+      business_remain = #{businessRemain,jdbcType=INTEGER},
+      soft_sleeper_remain = #{softSleeperRemain,jdbcType=INTEGER},
+      advanced_soft_remain = #{advancedSoftRemain,jdbcType=INTEGER},
+      highspeed_sleeper_remain = #{highspeedSleeperRemain,jdbcType=INTEGER},
+      hard_sleeper_remain = #{hardSleeperRemain,jdbcType=INTEGER},
+      soft_remain = #{softRemain,jdbcType=INTEGER},
+      hard_remain = #{hardRemain,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
