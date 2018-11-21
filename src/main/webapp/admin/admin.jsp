@@ -12,6 +12,6 @@
 </head>
 <body>
 <h1>Hello this is admin.jsp</h1>
-<p><a href="/logout">logout</a></p>
+<p><a href="/logout.jsp">logout</a></p>
 </body>
 </html>
