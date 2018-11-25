@@ -8,7 +8,7 @@ import java.sql.Date;
  */
 public class TrainInfo {
     private String trainNum;
-    private String chufanzhan;
+    private String chufazhan;
     private String mudizhan;
     private Date departureTime;
     private Date arriveTime;
@@ -21,12 +21,12 @@ public class TrainInfo {
         this.trainNum = trainNum;
     }
 
-    public String getChufanzhan() {
-        return chufanzhan;
+    public String getChufazhan() {
+        return chufazhan;
     }
 
-    public void setChufanzhan(String chufanzhan) {
-        this.chufanzhan = chufanzhan;
+    public void setChufazhan(String chufazhan) {
+        this.chufazhan = chufazhan;
     }
 
     public String getMudizhan() {
@@ -57,7 +57,7 @@ public class TrainInfo {
     public String toString() {
         return "TrainInfo{" +
                 "trainNum='" + trainNum + '\'' +
-                ", chufanzhan='" + chufanzhan + '\'' +
+                ", chufazhan='" + chufazhan + '\'' +
                 ", mudizhan='" + mudizhan + '\'' +
                 ", departureTime=" + departureTime +
                 ", arriveTime=" + arriveTime +

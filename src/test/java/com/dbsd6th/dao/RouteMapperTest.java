@@ -1,5 +1,6 @@
 package com.dbsd6th.dao;
 
+import com.dbsd6th.entity.Route;
 import com.dbsd6th.entity.TrainInfo;
 import org.junit.After;
 import org.junit.Before;
@@ -40,17 +41,23 @@ public class RouteMapperTest {
 
     @Test
     public void selectByStation() {
-    try {
-        if(routeMapper == null) {
-            System.out.println("route mapper is null!!!!");
+        try {
+            if(routeMapper == null) {
+                System.out.println("route mapper is null!!!!");
+            }
+    /*         SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
+             Date date = adf.parse("2019-01-01");*/
+             List<TrainInfo> list = routeMapper.selectByStation("深圳", "北京");
+             System.out.println(list);
+        }catch(Exception e){
+            e.printStackTrace();
         }
-/*         SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
-         Date date = adf.parse("2019-01-01");*/
-         List<TrainInfo> list = routeMapper.selectByStation("深圳", "北京");
-         System.out.println(list);
-    }catch(Exception e){
-        e.printStackTrace();
     }
 
+    @Test
+    public void selectByPrimaryKey() {
+        Route route = routeMapper.selectByPrimaryKey(1);
+
+        System.out.println(route);
     }
 }
