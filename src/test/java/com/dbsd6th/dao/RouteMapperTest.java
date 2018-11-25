@@ -1,7 +1,9 @@
 package com.dbsd6th.dao;
 
+import com.dbsd6th.entity.Route;
 import com.dbsd6th.entity.TrainInfo;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -22,6 +24,8 @@ public class RouteMapperTest {
     private ApplicationContext applicationContext;
     @Autowired
     private RouteMapper routeMapper;
+
+    @Before
     public void setUp() throws Exception {
         applicationContext = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
         //加载spring配置文件
@@ -37,14 +41,23 @@ public class RouteMapperTest {
 
     @Test
     public void selectByStation() {
-    try {
-/*         SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
-         Date date = adf.parse("2019-01-01");*/
-         List<TrainInfo> list = routeMapper.selectByStation("深圳", "北京");
-         System.out.println(list);
-    }catch(Exception e){
-        e.printStackTrace();
+        try {
+            if(routeMapper == null) {
+                System.out.println("route mapper is null!!!!");
+            }
+    /*         SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
+             Date date = adf.parse("2019-01-01");*/
+             List<TrainInfo> list = routeMapper.selectByStation("深圳", "北京");
+             System.out.println(list);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
+    @Test
+    public void selectByPrimaryKey() {
+        Route route = routeMapper.selectByPrimaryKey(1);
+
+        System.out.println(route);
     }
 }
