@@ -110,4 +110,21 @@ public class TrainType {
     public void setHardSeatNum(Integer hardSeatNum) {
         this.hardSeatNum = hardSeatNum;
     }
+
+    @Override
+    public String toString() {
+        return "TrainType{" +
+                "id=" + id +
+                ", standNum=" + standNum +
+                ", secondSeatNum=" + secondSeatNum +
+                ", firstSeatNum=" + firstSeatNum +
+                ", businessSeatNum=" + businessSeatNum +
+                ", advancedSoftNum=" + advancedSoftNum +
+                ", softSleeperNum=" + softSleeperNum +
+                ", highspeedSleeperNum=" + highspeedSleeperNum +
+                ", hardSleeperNum=" + hardSleeperNum +
+                ", softSeatNum=" + softSeatNum +
+                ", hardSeatNum=" + hardSeatNum +
+                '}';
+    }
 }

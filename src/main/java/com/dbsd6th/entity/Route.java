@@ -5,17 +5,17 @@ import java.util.Date;
 public class Route {
     private Integer id;
 
-    private String trainId;
+    private Integer trainId;
 
-    private Integer stationName;
+    private String stationName;
 
     private Integer routeSeq;
 
     private Integer nextDistance;
 
-    private Date arriveTime;
-
     private Date departureTime;
+
+    private Date arriveTime;
 
     public Integer getId() {
         return id;
@@ -25,19 +25,19 @@ public class Route {
         this.id = id;
     }
 
-    public String getTrainId() {
+    public Integer getTrainId() {
         return trainId;
     }
 
-    public void setTrainId(String trainId) {
+    public void setTrainId(Integer trainId) {
         this.trainId = trainId;
     }
 
-    public Integer getStationName() {
+    public String getStationName() {
         return stationName;
     }
 
-    public void setStationName(Integer stationName) {
+    public void setStationName(String stationName) {
         this.stationName = stationName;
     }
 
@@ -57,6 +57,14 @@ public class Route {
         this.nextDistance = nextDistance;
     }
 
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+    }
+
     public Date getArriveTime() {
         return arriveTime;
     }
@@ -65,11 +73,16 @@ public class Route {
         this.arriveTime = arriveTime;
     }
 
-    public Date getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
+    @Override
+    public String toString() {
+        return "Route{" +
+                "id=" + id +
+                ", trainId=" + trainId +
+                ", stationName='" + stationName + '\'' +
+                ", routeSeq=" + routeSeq +
+                ", nextDistance=" + nextDistance +
+                ", departureTime=" + departureTime +
+                ", arriveTime=" + arriveTime +
+                '}';
     }
 }
