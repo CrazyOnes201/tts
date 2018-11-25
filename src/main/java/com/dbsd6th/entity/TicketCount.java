@@ -142,4 +142,24 @@ public class TicketCount {
     public void setHardRemain(Integer hardRemain) {
         this.hardRemain = hardRemain;
     }
+
+    @Override
+    public String toString() {
+        return "TicketCount{" +
+                "id=" + id +
+                ", trainId='" + trainId + '\'' +
+                ", ticketRemain=" + ticketRemain +
+                ", time=" + time +
+                ", standRemain=" + standRemain +
+                ", secondRemain=" + secondRemain +
+                ", firstRemain=" + firstRemain +
+                ", businessRemain=" + businessRemain +
+                ", softSleeperRemain=" + softSleeperRemain +
+                ", advancedSoftRemain=" + advancedSoftRemain +
+                ", highspeedSleeperRemain=" + highspeedSleeperRemain +
+                ", hardSleeperRemain=" + hardSleeperRemain +
+                ", softRemain=" + softRemain +
+                ", hardRemain=" + hardRemain +
+                '}';
+    }
 }

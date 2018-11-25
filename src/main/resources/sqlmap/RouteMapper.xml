@@ -3,15 +3,28 @@
 <mapper namespace="com.dbsd6th.dao.RouteMapper" >
   <resultMap id="BaseResultMap" type="com.dbsd6th.entity.Route" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="train_id" property="trainId" jdbcType="VARCHAR" />
-    <result column="station_name" property="stationName" jdbcType="INTEGER" />
+    <result column="train_id" property="trainId" jdbcType="INTEGER" />
+    <result column="station_name" property="stationName" jdbcType="VARCHAR" />
     <result column="route_seq" property="routeSeq" jdbcType="INTEGER" />
     <result column="next_distance" property="nextDistance" jdbcType="INTEGER" />
-    <result column="arrive_time" property="arriveTime" jdbcType="TIMESTAMP" />
     <result column="departure_time" property="departureTime" jdbcType="TIMESTAMP" />
+    <result column="arrive_time" property="arriveTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+
+
+  <resultMap id="TrainInfoMap" type="com.dbsd6th.entity.TrainInfo" >
+    <result column="train_num" property="trainNum" jdbcType="VARCHAR" />
+    <result column="asn" property="chufazhan" jdbcType="VARCHAR" />
+    <result column="bsn" property="mudizhan" jdbcType="VARCHAR" />
+    <result column="departure_time" property="departureTime" jdbcType="TIMESTAMP" />
+    <result column="arrive_time" property="arriveTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+
   <sql id="Base_Column_List" >
-    id, train_id, station_name, route_seq, next_distance, arrive_time, departure_time
+    id, train_id, station_name, route_seq, next_distance, departure_time, arrive_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -19,17 +32,33 @@
     from route
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+
+
+  <select id="selectByStation" resultMap="TrainInfoMap">
+    select train_num,
+            a.station_name asn,
+            a.departure_time,
+            b.station_name bsn,
+            b.arrive_time
+            from train t left join route a on t.id = a.train_id
+                          left join route b on a.train_id = b.train_id
+    where a.station_name=#{0} and b.station_name=#{1} and b.route_seq > a.route_seq
+  </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from route
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.dbsd6th.entity.Route" >
     insert into route (id, train_id, station_name, 
-      route_seq, next_distance, arrive_time, 
-      departure_time)
-    values (#{id,jdbcType=INTEGER}, #{trainId,jdbcType=VARCHAR}, #{stationName,jdbcType=INTEGER}, 
-      #{routeSeq,jdbcType=INTEGER}, #{nextDistance,jdbcType=INTEGER}, #{arriveTime,jdbcType=TIMESTAMP}, 
-      #{departureTime,jdbcType=TIMESTAMP})
+      route_seq, next_distance, departure_time, 
+      arrive_time)
+    values (#{id,jdbcType=INTEGER}, #{trainId,jdbcType=INTEGER}, #{stationName,jdbcType=VARCHAR}, 
+      #{routeSeq,jdbcType=INTEGER}, #{nextDistance,jdbcType=INTEGER}, #{departureTime,jdbcType=TIMESTAMP}, 
+      #{arriveTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.dbsd6th.entity.Route" >
     insert into route
@@ -49,11 +78,11 @@
       <if test="nextDistance != null" >
         next_distance,
       </if>
-      <if test="arriveTime != null" >
-        arrive_time,
-      </if>
       <if test="departureTime != null" >
         departure_time,
+      </if>
+      <if test="arriveTime != null" >
+        arrive_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -61,10 +90,10 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="trainId != null" >
-        #{trainId,jdbcType=VARCHAR},
+        #{trainId,jdbcType=INTEGER},
       </if>
       <if test="stationName != null" >
-        #{stationName,jdbcType=INTEGER},
+        #{stationName,jdbcType=VARCHAR},
       </if>
       <if test="routeSeq != null" >
         #{routeSeq,jdbcType=INTEGER},
@@ -72,11 +101,11 @@
       <if test="nextDistance != null" >
         #{nextDistance,jdbcType=INTEGER},
       </if>
-      <if test="arriveTime != null" >
-        #{arriveTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="departureTime != null" >
         #{departureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arriveTime != null" >
+        #{arriveTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -84,10 +113,10 @@
     update route
     <set >
       <if test="trainId != null" >
-        train_id = #{trainId,jdbcType=VARCHAR},
+        train_id = #{trainId,jdbcType=INTEGER},
       </if>
       <if test="stationName != null" >
-        station_name = #{stationName,jdbcType=INTEGER},
+        station_name = #{stationName,jdbcType=VARCHAR},
       </if>
       <if test="routeSeq != null" >
         route_seq = #{routeSeq,jdbcType=INTEGER},
@@ -95,23 +124,23 @@
       <if test="nextDistance != null" >
         next_distance = #{nextDistance,jdbcType=INTEGER},
       </if>
-      <if test="arriveTime != null" >
-        arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="departureTime != null" >
         departure_time = #{departureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arriveTime != null" >
+        arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dbsd6th.entity.Route" >
     update route
-    set train_id = #{trainId,jdbcType=VARCHAR},
-      station_name = #{stationName,jdbcType=INTEGER},
+    set train_id = #{trainId,jdbcType=INTEGER},
+      station_name = #{stationName,jdbcType=VARCHAR},
       route_seq = #{routeSeq,jdbcType=INTEGER},
       next_distance = #{nextDistance,jdbcType=INTEGER},
-      arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
-      departure_time = #{departureTime,jdbcType=TIMESTAMP}
+      departure_time = #{departureTime,jdbcType=TIMESTAMP},
+      arrive_time = #{arriveTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

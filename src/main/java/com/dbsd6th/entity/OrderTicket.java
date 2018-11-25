@@ -112,4 +112,21 @@ public class OrderTicket {
     public void setEffect(Integer effect) {
         this.effect = effect;
     }
+
+    @Override
+    public String toString() {
+        return "OrderTicket{" +
+                "id=" + id +
+                ", orderTime=" + orderTime +
+                ", trainId='" + trainId + '\'' +
+                ", ticketPrice=" + ticketPrice +
+                ", seatId=" + seatId +
+                ", seatType=" + seatType +
+                ", userId=" + userId +
+                ", ticketId='" + ticketId + '\'' +
+                ", arriveRouteId=" + arriveRouteId +
+                ", depatureRouteId=" + depatureRouteId +
+                ", effect=" + effect +
+                '}';
+    }
 }

@@ -19,6 +19,8 @@ public class Train {
 
     private Integer totalStationNum;
 
+    private String trainNum;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +83,28 @@ public class Train {
 
     public void setTotalStationNum(Integer totalStationNum) {
         this.totalStationNum = totalStationNum;
+    }
+
+    public String getTrainNum() {
+        return trainNum;
+    }
+
+    public void setTrainNum(String trainNum) {
+        this.trainNum = trainNum;
+    }
+
+    @Override
+    public String toString() {
+        return "Train{" +
+                "id=" + id +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", startStationName='" + startStationName + '\'' +
+                ", endStationName='" + endStationName + '\'' +
+                ", totalDistance=" + totalDistance +
+                ", trainTypeId=" + trainTypeId +
+                ", totalStationNum=" + totalStationNum +
+                ", trainNum='" + trainNum + '\'' +
+                '}';
     }
 }

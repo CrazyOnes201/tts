@@ -70,4 +70,17 @@ public class User {
     public void setAdmin(String admin) {
         this.admin = admin;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", identityNum='" + identityNum + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", admin='" + admin + '\'' +
+                '}';
+    }
 }

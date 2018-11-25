@@ -10,10 +10,11 @@
     <result column="total_distance" property="totalDistance" jdbcType="DOUBLE" />
     <result column="train_type_id" property="trainTypeId" jdbcType="INTEGER" />
     <result column="total_station_num" property="totalStationNum" jdbcType="INTEGER" />
+    <result column="train_num" property="trainNum" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, start_time, end_time, start_station_name, end_station_name, total_distance, train_type_id, 
-    total_station_num
+    total_station_num, train_num
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,10 +29,12 @@
   <insert id="insert" parameterType="com.dbsd6th.entity.Train" >
     insert into train (id, start_time, end_time, 
       start_station_name, end_station_name, total_distance, 
-      train_type_id, total_station_num)
+      train_type_id, total_station_num, train_num
+      )
     values (#{id,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
       #{startStationName,jdbcType=VARCHAR}, #{endStationName,jdbcType=VARCHAR}, #{totalDistance,jdbcType=DOUBLE}, 
-      #{trainTypeId,jdbcType=INTEGER}, #{totalStationNum,jdbcType=INTEGER})
+      #{trainTypeId,jdbcType=INTEGER}, #{totalStationNum,jdbcType=INTEGER}, #{trainNum,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.dbsd6th.entity.Train" >
     insert into train
@@ -60,6 +63,9 @@
       <if test="totalStationNum != null" >
         total_station_num,
       </if>
+      <if test="trainNum != null" >
+        train_num,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -85,6 +91,9 @@
       </if>
       <if test="totalStationNum != null" >
         #{totalStationNum,jdbcType=INTEGER},
+      </if>
+      <if test="trainNum != null" >
+        #{trainNum,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -112,6 +121,9 @@
       <if test="totalStationNum != null" >
         total_station_num = #{totalStationNum,jdbcType=INTEGER},
       </if>
+      <if test="trainNum != null" >
+        train_num = #{trainNum,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -123,7 +135,8 @@
       end_station_name = #{endStationName,jdbcType=VARCHAR},
       total_distance = #{totalDistance,jdbcType=DOUBLE},
       train_type_id = #{trainTypeId,jdbcType=INTEGER},
-      total_station_num = #{totalStationNum,jdbcType=INTEGER}
+      total_station_num = #{totalStationNum,jdbcType=INTEGER},
+      train_num = #{trainNum,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

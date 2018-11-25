@@ -1,17 +1,25 @@
 package com.dbsd6th.dao;
 
 import com.dbsd6th.entity.Route;
+import com.dbsd6th.entity.TrainInfo;
+import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
+@Repository
 public interface RouteMapper {
-    int deleteByPrimaryKey(Integer id);
+    public int deleteByPrimaryKey(Integer id);
 
-    int insert(Route record);
+    public int insert(Route record);
 
-    int insertSelective(Route record);
+    public int insertSelective(Route record);
 
-    Route selectByPrimaryKey(Integer id);
+    public Route selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Route record);
+    public int updateByPrimaryKeySelective(Route record);
 
-    int updateByPrimaryKey(Route record);
+    public int updateByPrimaryKey(Route record);
+
+    public List<TrainInfo> selectByStation(String chufazhan, String mudizhan);
 }
