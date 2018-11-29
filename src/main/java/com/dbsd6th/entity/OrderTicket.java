@@ -3,27 +3,27 @@ package com.dbsd6th.entity;
 import java.util.Date;
 
 public class OrderTicket {
-    private Integer id;
+    private Integer id;//每一笔订单的编号
 
-    private Date orderTime;
+    private Date orderTime;//用户订购时间
 
-    private String trainId;
+    private String trainId;//列车号
 
-    private Integer ticketPrice;
+    private Integer ticketPrice;//票价
 
-    private Integer seatId;
+    private Integer seatId;//座位
 
-    private Integer seatType;
+    private Integer seatType;//座位类型
 
-    private Integer userId;
+    private Integer userId;//用户id
 
-    private String ticketId;
+    private String ticketId;//列车票票号
 
-    private Integer arriveRouteId;
+    private Integer arriveRouteId;//目的站所在路线的Id
 
-    private Integer depatureRouteId;
+    private Integer depatureRouteId;//起始站所在路线Id
 
-    private Integer effect;
+    private Integer effect;//是否有效，默认为1，当用户退票时，将该订单号置为0
 
     public Integer getId() {
         return id;

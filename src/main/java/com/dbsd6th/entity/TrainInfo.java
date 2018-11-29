@@ -1,17 +1,26 @@
 package com.dbsd6th.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author hjs
  * @date 2018/11/24 16:35
  */
 public class TrainInfo {
+    private int trainId;
     private String trainNum;
     private String chufazhan;
     private String mudizhan;
     private Date departureTime;
     private Date arriveTime;
+
+    public int getTrainId() {
+        return trainId;
+    }
+
+    public void setTrainId(int trainId) {
+        this.trainId = trainId;
+    }
 
     public String getTrainNum() {
         return trainNum;
@@ -56,7 +65,8 @@ public class TrainInfo {
     @Override
     public String toString() {
         return "TrainInfo{" +
-                "trainNum='" + trainNum + '\'' +
+                "trainId=" + trainId +
+                ", trainNum='" + trainNum + '\'' +
                 ", chufazhan='" + chufazhan + '\'' +
                 ", mudizhan='" + mudizhan + '\'' +
                 ", departureTime=" + departureTime +

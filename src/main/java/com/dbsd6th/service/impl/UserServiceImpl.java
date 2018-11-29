@@ -1,10 +1,14 @@
 package com.dbsd6th.service.impl;
 
 import com.dbsd6th.dao.UserMapper;
+import com.dbsd6th.entity.Route;
 import com.dbsd6th.entity.User;
 import com.dbsd6th.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author hjs
@@ -15,7 +19,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Override
     public Boolean userRegist(User user) {
         if(this.userMapper.insertSelective(user)==1) {
             System.out.println("成功进行了注册操作");
@@ -27,7 +30,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
+
     public int userLogin(Integer userid, String password) {
         User existUser = this.userMapper.selectByPrimaryKey(userid);
         if (existUser == null) {
@@ -45,14 +48,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
+
     public User selectUser(Integer id) {
 
         return this.userMapper.selectByPrimaryKey(id);
     }
 
-    @Override
+
     public User deleteUser(Integer id) {
         return null;
     }
+
+
+
 }

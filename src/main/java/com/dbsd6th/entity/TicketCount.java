@@ -147,19 +147,19 @@ public class TicketCount {
     public String toString() {
         return "TicketCount{" +
                 "id=" + id +
-                ", trainId='" + trainId + '\'' +
-                ", ticketRemain=" + ticketRemain +
-                ", time=" + time +
-                ", standRemain=" + standRemain +
-                ", secondRemain=" + secondRemain +
-                ", firstRemain=" + firstRemain +
-                ", businessRemain=" + businessRemain +
-                ", softSleeperRemain=" + softSleeperRemain +
-                ", advancedSoftRemain=" + advancedSoftRemain +
-                ", highspeedSleeperRemain=" + highspeedSleeperRemain +
-                ", hardSleeperRemain=" + hardSleeperRemain +
-                ", softRemain=" + softRemain +
-                ", hardRemain=" + hardRemain +
+                ", 列车id='" + trainId + '\'' +
+                ", 总票数=" + ticketRemain +
+                ", 出发时间=" + time +
+                ", 站票剩余=" + standRemain +
+                ", 二等座剩余=" + secondRemain +
+                ", 一等座剩余=" + firstRemain +
+                ", 商务座剩余=" + businessRemain +
+                ", 软卧剩余=" + softSleeperRemain +
+                ", 高级软卧剩余=" + advancedSoftRemain +
+                ", 动卧剩余=" + highspeedSleeperRemain +
+                ", 硬卧剩余=" + hardSleeperRemain +
+                ", 软座剩余=" + softRemain +
+                ", 硬座剩余=" + hardRemain +
                 '}';
     }
 }

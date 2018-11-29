@@ -1,17 +1,19 @@
 package com.dbsd6th.dao;
 
 import com.dbsd6th.entity.TicketCount;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TicketCountMapper {
-    int deleteByPrimaryKey(Integer id);
+    public int deleteByPrimaryKey(Integer id);
 
-    int insert(TicketCount record);
+    public int insert(TicketCount record);
 
-    int insertSelective(TicketCount record);
+    public int insertSelective(TicketCount record);
 
-    TicketCount selectByPrimaryKey(Integer id);
+    public TicketCount selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(TicketCount record);
+    public int updateByPrimaryKeySelective(TicketCount record);
 
-    int updateByPrimaryKey(TicketCount record);
+    public int updateByPrimaryKey(TicketCount record);
 }
