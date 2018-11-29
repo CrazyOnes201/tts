@@ -45,18 +45,44 @@ public class RouteMapperTest {
             if(routeMapper == null) {
                 System.out.println("route mapper is null!!!!");
             }
-    /*         SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
-             Date date = adf.parse("2019-01-01");*/
-             List<TrainInfo> list = routeMapper.selectByStation("深圳", "北京");
-             System.out.println(list);
+              SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
+              Date chufashijian = adf.parse("2019-01-01");
+              List<TrainInfo> list = routeMapper.selectByStation("深圳", "厦门",chufashijian);
+              System.out.println("测试：输入出发站、终点站、出发日期");
+              System.out.println("从数据库中获得的查询结果为"+list.size()+"条");
+              for (int i = 0;i < list.size();i++) {
+                  System.out.println(list.get(i));
+                  System.out.println(list.get(i).getChufazhan());
+              }
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
     @Test
+    public void selectTransferStation(){
+        try {
+            if(routeMapper == null) {
+                System.out.println("route mapper is null!!!!");
+            }
+            SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
+            Date chufashijian = adf.parse("2019-01-01");
+            List<Route> list = routeMapper.selectTransferStation("深圳", "广州",chufashijian);
+            System.out.println("测试：输入出发站、终点站、出发日期");
+            System.out.println("从数据库中获得的查询结果为"+list.size()+"条");
+            for (int i = 0;i < list.size();i++) {
+                System.out.println(list.get(i));
+                System.out.println(list.get(i).getStationName());
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
     public void selectByPrimaryKey() {
-        Route route = routeMapper.selectByPrimaryKey(1);
+        Route route = routeMapper.selectByPrimaryKey(2);
 
         System.out.println(route);
     }

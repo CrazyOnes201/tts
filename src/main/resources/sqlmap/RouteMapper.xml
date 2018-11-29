@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dbsd6th.dao.RouteMapper" >
+
   <resultMap id="BaseResultMap" type="com.dbsd6th.entity.Route" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="train_id" property="trainId" jdbcType="INTEGER" />
@@ -14,6 +15,7 @@
 
 
   <resultMap id="TrainInfoMap" type="com.dbsd6th.entity.TrainInfo" >
+    <result column="train_id" property="trainId" jdbcType="INTEGER" />
     <result column="train_num" property="trainNum" jdbcType="VARCHAR" />
     <result column="asn" property="chufazhan" jdbcType="VARCHAR" />
     <result column="bsn" property="mudizhan" jdbcType="VARCHAR" />
@@ -22,10 +24,22 @@
   </resultMap>
 
 
+<!--    <resultMap id="TrainTransferInfoMap" type="com.dbsd6th.entity.TrainTransferInfo" >
+        <result column="train_id" property="trainId" jdbcType="INTEGER" />
+        <result column="train_num" property="trainNum" jdbcType="VARCHAR" />
+        <result column="asn" property="chufazhan" jdbcType="VARCHAR" />
+        <result column="bsn" property="mudizhan" jdbcType="VARCHAR" />
+        <result column="departure_time" property="departureTime" jdbcType="TIMESTAMP" />
+        <result column="arrive_time" property="arriveTime" jdbcType="TIMESTAMP" />
+    </resultMap>-->
+
+
 
   <sql id="Base_Column_List" >
     id, train_id, station_name, route_seq, next_distance, departure_time, arrive_time
   </sql>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -35,16 +49,82 @@
 
 
 
+  <!--基本查询：根据出发站和目的站以及出发时间查询车次-->
+  <!--上次学长说可以用时间区间去比较，我查阅了一些资料，还是不清楚怎么在这个mapper层里将dao层传过来
+      的date类型的出发时间+1，所以我这样子处理：用SQL的date函数截掉数据库里的datetime的时分秒部分，
+      剩下日期就可以进行相等比较了。或者学长知道怎么写更优，也可以把我的部分注释掉，再写另一种方法-->
   <select id="selectByStation" resultMap="TrainInfoMap">
-    select train_num,
+    select  a.train_id,
+            train_num,
             a.station_name asn,
             a.departure_time,
             b.station_name bsn,
             b.arrive_time
             from train t left join route a on t.id = a.train_id
                           left join route b on a.train_id = b.train_id
-    where a.station_name=#{0} and b.station_name=#{1} and b.route_seq > a.route_seq
+    where a.station_name=#{0} and
+           b.station_name=#{1} and
+           date(a.departure_time) = #{2} and
+           b.route_seq &gt; a.route_seq
   </select>
+
+
+  <!--高级查询4：子操作1-->
+  <select id="selectTransferStation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from route
+    where station_name = #{0} and
+           train_id not in(
+           select train_id from route
+           where station_name = #{1}
+    )and  date(departure_time) = #{2}
+  </select>
+
+
+  <!--  这部分当时是打算将中转站的全部信息存取起来的，但是感觉用处不大，所以先注释掉
+  <select id="selectTransferStation2" resultMap="TrainTransferInfoMap">
+        select a.id as id1,
+                b.id as id2,
+                a.train_id as trainId1,
+                b.train_id as trainId2,
+                a.station_name as stationName,
+                a.route_seq as routeSeq1,
+                b.route_seq as routeSeq2,
+                a.departure_time as departureTime1,
+                b.departure_time as departureTime2,
+                a.arrive_time as arriveTime1,
+                b.arrive_time as arriveTime2,
+                b.next_distance as nextDistance2
+        from route a and route b
+        where trainId1 = #{0} and
+               trainId2 = #{1} and
+               a.station_name = b.station_name and
+               arriveTime1 &lt; departureTime2 and
+               routeSeq1 &gt; #{2} and
+               routeSeq2 &lt; #{3}
+    </select>-->
+
+    <!--高级查询4：子操作2-->
+    <select id="selectTransferStation2" resultMap="BaseResultMap">
+        select a.*
+        from route as a ,route as b
+        where a.train_id = #{0} and
+               b.train_id = #{1} and
+               a.station_name = b.station_name and
+               a.arrive_time &lt; b.departure_time and
+               a.route_seq &gt; #{2} and
+               b.route_seq &lt; #{3}
+    </select>
+
+    <!--高级查询4：子操作3-->
+    <select id="selectTransferStation3" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from route
+        where train_id = #{0} and station_name = #{1}
+    </select>
+
 
 
 
