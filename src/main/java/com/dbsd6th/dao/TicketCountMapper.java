@@ -3,17 +3,21 @@ package com.dbsd6th.dao;
 import com.dbsd6th.entity.TicketCount;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+
 @Repository
 public interface TicketCountMapper {
-    public int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer id);
 
-    public int insert(TicketCount record);
+    int insert(TicketCount record);
 
-    public int insertSelective(TicketCount record);
+    int insertSelective(TicketCount record);
 
-    public TicketCount selectByPrimaryKey(Integer id);
+    TicketCount selectByPrimaryKey(Integer id);
 
-    public int updateByPrimaryKeySelective(TicketCount record);
+    int updateByPrimaryKeySelective(TicketCount record);
 
-    public int updateByPrimaryKey(TicketCount record);
+    int updateByPrimaryKey(TicketCount record);
+
+    TicketCount searchTicket(HashMap<String, Object> condition);
 }
