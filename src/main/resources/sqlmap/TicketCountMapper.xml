@@ -3,9 +3,9 @@
 <mapper namespace="com.dbsd6th.dao.TicketCountMapper" >
   <resultMap id="BaseResultMap" type="com.dbsd6th.entity.TicketCount" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="train_id" property="trainId" jdbcType="VARCHAR" />
+    <result column="train_id" property="trainId" jdbcType="INTEGER" />
     <result column="ticket_remain" property="ticketRemain" jdbcType="INTEGER" />
-    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
     <result column="stand_remain" property="standRemain" jdbcType="INTEGER" />
     <result column="second_remain" property="secondRemain" jdbcType="INTEGER" />
     <result column="first_remain" property="firstRemain" jdbcType="INTEGER" />
@@ -18,9 +18,9 @@
     <result column="hard_remain" property="hardRemain" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, train_id, ticket_remain, time, stand_remain, second_remain, first_remain, business_remain, 
-    soft_sleeper_remain, advanced_soft_remain, highspeed_sleeper_remain, hard_sleeper_remain, 
-    soft_remain, hard_remain
+    id, train_id, ticket_remain, order_time, stand_remain, second_remain, first_remain, 
+    business_remain, soft_sleeper_remain, advanced_soft_remain, highspeed_sleeper_remain, 
+    hard_sleeper_remain, soft_remain, hard_remain
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,19 +28,27 @@
     from ticket_count
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="searchTicket" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select
+    <include refid="Base_Column_List" />
+    from ticket_count
+    where train_id = #{tid, jdbcType=INTEGER} and order_time > #{sTime, jdbcType=DATE}
+          and #{eTime, jdbcType=DATE} > order_time
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ticket_count
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.dbsd6th.entity.TicketCount" >
     insert into ticket_count (id, train_id, ticket_remain, 
-      time, stand_remain, second_remain, 
+      order_time, stand_remain, second_remain, 
       first_remain, business_remain, soft_sleeper_remain, 
       advanced_soft_remain, highspeed_sleeper_remain, 
       hard_sleeper_remain, soft_remain, hard_remain
       )
-    values (#{id,jdbcType=INTEGER}, #{trainId,jdbcType=VARCHAR}, #{ticketRemain,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP}, #{standRemain,jdbcType=INTEGER}, #{secondRemain,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{trainId,jdbcType=INTEGER}, #{ticketRemain,jdbcType=INTEGER}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{standRemain,jdbcType=INTEGER}, #{secondRemain,jdbcType=INTEGER}, 
       #{firstRemain,jdbcType=INTEGER}, #{businessRemain,jdbcType=INTEGER}, #{softSleeperRemain,jdbcType=INTEGER}, 
       #{advancedSoftRemain,jdbcType=INTEGER}, #{highspeedSleeperRemain,jdbcType=INTEGER}, 
       #{hardSleeperRemain,jdbcType=INTEGER}, #{softRemain,jdbcType=INTEGER}, #{hardRemain,jdbcType=INTEGER}
@@ -58,8 +66,8 @@
       <if test="ticketRemain != null" >
         ticket_remain,
       </if>
-      <if test="time != null" >
-        time,
+      <if test="orderTime != null" >
+        order_time,
       </if>
       <if test="standRemain != null" >
         stand_remain,
@@ -97,13 +105,13 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="trainId != null" >
-        #{trainId,jdbcType=VARCHAR},
+        #{trainId,jdbcType=INTEGER},
       </if>
       <if test="ticketRemain != null" >
         #{ticketRemain,jdbcType=INTEGER},
       </if>
-      <if test="time != null" >
-        #{time,jdbcType=TIMESTAMP},
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
       </if>
       <if test="standRemain != null" >
         #{standRemain,jdbcType=INTEGER},
@@ -141,13 +149,13 @@
     update ticket_count
     <set >
       <if test="trainId != null" >
-        train_id = #{trainId,jdbcType=VARCHAR},
+        train_id = #{trainId,jdbcType=INTEGER},
       </if>
       <if test="ticketRemain != null" >
         ticket_remain = #{ticketRemain,jdbcType=INTEGER},
       </if>
-      <if test="time != null" >
-        time = #{time,jdbcType=TIMESTAMP},
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
       </if>
       <if test="standRemain != null" >
         stand_remain = #{standRemain,jdbcType=INTEGER},
@@ -184,9 +192,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dbsd6th.entity.TicketCount" >
     update ticket_count
-    set train_id = #{trainId,jdbcType=VARCHAR},
+    set train_id = #{trainId,jdbcType=INTEGER},
       ticket_remain = #{ticketRemain,jdbcType=INTEGER},
-      time = #{time,jdbcType=TIMESTAMP},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
       stand_remain = #{standRemain,jdbcType=INTEGER},
       second_remain = #{secondRemain,jdbcType=INTEGER},
       first_remain = #{firstRemain,jdbcType=INTEGER},

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import static org.junit.Assert.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author hjs
@@ -44,5 +46,19 @@ public class TicketCountMapperTest {
             e.printStackTrace();
 
         }
+    }
+
+    @Test public void searchTicket() throws Exception {
+        SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
+        Date sTime = adf.parse("2019-01-01");
+        Date eTime = adf.parse("2019-01-02");
+
+        HashMap<String, Object> input = new HashMap<String, Object>();
+        input.put("sTime", sTime);
+        input.put("eTime", eTime);
+        input.put("tid", new Integer(1));
+
+        TicketCount ticketCount = ticketCountMapper.searchTicket(input);
+        System.out.println(ticketCount);
     }
 }
