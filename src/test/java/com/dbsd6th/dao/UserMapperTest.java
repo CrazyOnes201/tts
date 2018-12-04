@@ -43,4 +43,11 @@ public class UserMapperTest {
         assert (result == 1);
 
     }
+
+    @Test
+    public void selectByPrimaryKey(){
+        User user = this.userMapper.selectByPrimaryKey(1);
+        System.out.println(user);
+
+    }
 }
