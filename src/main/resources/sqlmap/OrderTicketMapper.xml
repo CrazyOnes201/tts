@@ -4,12 +4,12 @@
   <resultMap id="BaseResultMap" type="com.dbsd6th.entity.OrderTicket" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
-    <result column="train_id" property="trainId" jdbcType="VARCHAR" />
-    <result column="ticket_price" property="ticketPrice" jdbcType="INTEGER" />
+    <result column="train_id" property="trainId" jdbcType="INTEGER" />
+    <result column="ticket_price" property="ticketPrice" jdbcType="DECIMAL" />
     <result column="seat_id" property="seatId" jdbcType="INTEGER" />
-    <result column="seat_type" property="seatType" jdbcType="INTEGER" />
+    <result column="seat_type" property="seatType" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="ticket_id" property="ticketId" jdbcType="VARCHAR" />
+    <result column="ticket_id" property="ticketId" jdbcType="INTEGER" />
     <result column="arrive_route_id" property="arriveRouteId" jdbcType="INTEGER" />
     <result column="depature_route_id" property="depatureRouteId" jdbcType="INTEGER" />
     <result column="effect" property="effect" jdbcType="INTEGER" />
@@ -33,9 +33,9 @@
       ticket_price, seat_id, seat_type, 
       user_id, ticket_id, arrive_route_id, 
       depature_route_id, effect)
-    values (#{id,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP}, #{trainId,jdbcType=VARCHAR}, 
-      #{ticketPrice,jdbcType=INTEGER}, #{seatId,jdbcType=INTEGER}, #{seatType,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{ticketId,jdbcType=VARCHAR}, #{arriveRouteId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP}, #{trainId,jdbcType=INTEGER}, 
+      #{ticketPrice,jdbcType=DECIMAL}, #{seatId,jdbcType=INTEGER}, #{seatType,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{ticketId,jdbcType=INTEGER}, #{arriveRouteId,jdbcType=INTEGER}, 
       #{depatureRouteId,jdbcType=INTEGER}, #{effect,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dbsd6th.entity.OrderTicket" >
@@ -83,22 +83,22 @@
         #{orderTime,jdbcType=TIMESTAMP},
       </if>
       <if test="trainId != null" >
-        #{trainId,jdbcType=VARCHAR},
+        #{trainId,jdbcType=INTEGER},
       </if>
       <if test="ticketPrice != null" >
-        #{ticketPrice,jdbcType=INTEGER},
+        #{ticketPrice,jdbcType=DECIMAL},
       </if>
       <if test="seatId != null" >
         #{seatId,jdbcType=INTEGER},
       </if>
       <if test="seatType != null" >
-        #{seatType,jdbcType=INTEGER},
+        #{seatType,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="ticketId != null" >
-        #{ticketId,jdbcType=VARCHAR},
+        #{ticketId,jdbcType=INTEGER},
       </if>
       <if test="arriveRouteId != null" >
         #{arriveRouteId,jdbcType=INTEGER},
@@ -118,22 +118,22 @@
         order_time = #{orderTime,jdbcType=TIMESTAMP},
       </if>
       <if test="trainId != null" >
-        train_id = #{trainId,jdbcType=VARCHAR},
+        train_id = #{trainId,jdbcType=INTEGER},
       </if>
       <if test="ticketPrice != null" >
-        ticket_price = #{ticketPrice,jdbcType=INTEGER},
+        ticket_price = #{ticketPrice,jdbcType=DECIMAL},
       </if>
       <if test="seatId != null" >
         seat_id = #{seatId,jdbcType=INTEGER},
       </if>
       <if test="seatType != null" >
-        seat_type = #{seatType,jdbcType=INTEGER},
+        seat_type = #{seatType,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="ticketId != null" >
-        ticket_id = #{ticketId,jdbcType=VARCHAR},
+        ticket_id = #{ticketId,jdbcType=INTEGER},
       </if>
       <if test="arriveRouteId != null" >
         arrive_route_id = #{arriveRouteId,jdbcType=INTEGER},
@@ -150,12 +150,12 @@
   <update id="updateByPrimaryKey" parameterType="com.dbsd6th.entity.OrderTicket" >
     update order_ticket
     set order_time = #{orderTime,jdbcType=TIMESTAMP},
-      train_id = #{trainId,jdbcType=VARCHAR},
-      ticket_price = #{ticketPrice,jdbcType=INTEGER},
+      train_id = #{trainId,jdbcType=INTEGER},
+      ticket_price = #{ticketPrice,jdbcType=DECIMAL},
       seat_id = #{seatId,jdbcType=INTEGER},
-      seat_type = #{seatType,jdbcType=INTEGER},
+      seat_type = #{seatType,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
-      ticket_id = #{ticketId,jdbcType=VARCHAR},
+      ticket_id = #{ticketId,jdbcType=INTEGER},
       arrive_route_id = #{arriveRouteId,jdbcType=INTEGER},
       depature_route_id = #{depatureRouteId,jdbcType=INTEGER},
       effect = #{effect,jdbcType=INTEGER}

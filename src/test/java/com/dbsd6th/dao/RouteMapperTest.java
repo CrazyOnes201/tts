@@ -52,7 +52,6 @@ public class RouteMapperTest {
               System.out.println("从数据库中获得的查询结果为"+list.size()+"条");
               for (int i = 0;i < list.size();i++) {
                   System.out.println(list.get(i));
-                  System.out.println(list.get(i).getChufazhan());
               }
         }catch(Exception e){
             e.printStackTrace();
@@ -85,5 +84,18 @@ public class RouteMapperTest {
         Route route = routeMapper.selectByPrimaryKey(2);
 
         System.out.println(route);
+    }
+
+    @Test
+    public void getRouteListForCount(){
+        List<Route> lists = this.routeMapper.getRouteListForCount(1,2,4);
+        int totalDistance=0;
+        for (int i = 0; i < lists.size(); i++) {
+            totalDistance = totalDistance + lists.get(i).getNextDistance();
+            System.out.println(lists.get(i));
+        }
+        System.out.println(totalDistance);
+        System.out.println(new Date());
+
     }
 }

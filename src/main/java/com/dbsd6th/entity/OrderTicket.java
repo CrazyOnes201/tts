@@ -1,29 +1,30 @@
 package com.dbsd6th.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderTicket {
-    private Integer id;//每一笔订单的编号
+    private Integer id;
 
-    private Date orderTime;//用户订购时间
+    private Date orderTime;
 
-    private String trainId;//列车号
+    private Integer trainId;
 
-    private Integer ticketPrice;//票价
+    private BigDecimal ticketPrice;
 
-    private Integer seatId;//座位
+    private Integer seatId;
 
-    private Integer seatType;//座位类型
+    private String seatType;
 
-    private Integer userId;//用户id
+    private Integer userId;
 
-    private String ticketId;//列车票票号
+    private Integer ticketId;
 
-    private Integer arriveRouteId;//目的站所在路线的Id
+    private Integer arriveRouteId;
 
-    private Integer depatureRouteId;//起始站所在路线Id
+    private Integer depatureRouteId;
 
-    private Integer effect;//是否有效，默认为1，当用户退票时，将该订单号置为0
+    private Integer effect;
 
     public Integer getId() {
         return id;
@@ -41,19 +42,19 @@ public class OrderTicket {
         this.orderTime = orderTime;
     }
 
-    public String getTrainId() {
+    public Integer getTrainId() {
         return trainId;
     }
 
-    public void setTrainId(String trainId) {
+    public void setTrainId(Integer trainId) {
         this.trainId = trainId;
     }
 
-    public Integer getTicketPrice() {
+    public BigDecimal getTicketPrice() {
         return ticketPrice;
     }
 
-    public void setTicketPrice(Integer ticketPrice) {
+    public void setTicketPrice(BigDecimal ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
 
@@ -65,11 +66,11 @@ public class OrderTicket {
         this.seatId = seatId;
     }
 
-    public Integer getSeatType() {
+    public String getSeatType() {
         return seatType;
     }
 
-    public void setSeatType(Integer seatType) {
+    public void setSeatType(String seatType) {
         this.seatType = seatType;
     }
 
@@ -81,11 +82,11 @@ public class OrderTicket {
         this.userId = userId;
     }
 
-    public String getTicketId() {
+    public Integer getTicketId() {
         return ticketId;
     }
 
-    public void setTicketId(String ticketId) {
+    public void setTicketId(Integer ticketId) {
         this.ticketId = ticketId;
     }
 
@@ -111,22 +112,5 @@ public class OrderTicket {
 
     public void setEffect(Integer effect) {
         this.effect = effect;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderTicket{" +
-                "id=" + id +
-                ", orderTime=" + orderTime +
-                ", trainId='" + trainId + '\'' +
-                ", ticketPrice=" + ticketPrice +
-                ", seatId=" + seatId +
-                ", seatType=" + seatType +
-                ", userId=" + userId +
-                ", ticketId='" + ticketId + '\'' +
-                ", arriveRouteId=" + arriveRouteId +
-                ", depatureRouteId=" + depatureRouteId +
-                ", effect=" + effect +
-                '}';
     }
 }

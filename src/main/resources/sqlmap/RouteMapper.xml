@@ -18,7 +18,9 @@
     <result column="train_id" property="trainId" jdbcType="INTEGER" />
     <result column="train_num" property="trainNum" jdbcType="VARCHAR" />
     <result column="asn" property="chufazhan" jdbcType="VARCHAR" />
+    <result column="ars" property="routeSeq1" jdbcType="INTEGER" />
     <result column="bsn" property="mudizhan" jdbcType="VARCHAR" />
+    <result column="brs" property="routeSeq2" jdbcType="INTEGER" />
     <result column="departure_time" property="departureTime" jdbcType="TIMESTAMP" />
     <result column="arrive_time" property="arriveTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -57,8 +59,10 @@
     select  a.train_id,
             train_num,
             a.station_name asn,
+            a.route_seq ars,
             a.departure_time,
             b.station_name bsn,
+            b.route_seq brs,
             b.arrive_time
             from train t left join route a on t.id = a.train_id
                           left join route b on a.train_id = b.train_id
@@ -125,7 +129,12 @@
         where train_id = #{0} and station_name = #{1}
     </select>
 
-
+<select id="getRouteListForCount" resultMap="BaseResultMap">
+        select
+       <include refid="Base_Column_List"/>
+        from route
+       where train_id = #{0} and route_seq &gt;= #{1} and route_seq &lt;= #{2}
+</select>
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

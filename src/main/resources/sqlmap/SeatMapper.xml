@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dbsd6th.dao.SeatMapper" >
+  <resultMap id="BaseResultMap" type="com.dbsd6th.entity.Seat" >
+    <id column="seatId" property="seatid" jdbcType="INTEGER" />
+    <result column="seatStatus" property="seatstatus" jdbcType="INTEGER" />
+    <result column="seatType" property="seattype" jdbcType="INTEGER" />
+    <result column="kmPrice" property="kmprice" jdbcType="INTEGER" />
+    <result column="trainId" property="trainid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seatId, seatStatus, seatType, kmPrice, trainId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from seat
+    where seatId = #{seatid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from seat
+    where seatId = #{seatid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dbsd6th.entity.Seat" >
+    insert into seat (seatId, seatStatus, seatType, 
+      kmPrice, trainId)
+    values (#{seatid,jdbcType=INTEGER}, #{seatstatus,jdbcType=INTEGER}, #{seattype,jdbcType=INTEGER}, 
+      #{kmprice,jdbcType=INTEGER}, #{trainid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dbsd6th.entity.Seat" >
+    insert into seat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seatid != null" >
+        seatId,
+      </if>
+      <if test="seatstatus != null" >
+        seatStatus,
+      </if>
+      <if test="seattype != null" >
+        seatType,
+      </if>
+      <if test="kmprice != null" >
+        kmPrice,
+      </if>
+      <if test="trainid != null" >
+        trainId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seatid != null" >
+        #{seatid,jdbcType=INTEGER},
+      </if>
+      <if test="seatstatus != null" >
+        #{seatstatus,jdbcType=INTEGER},
+      </if>
+      <if test="seattype != null" >
+        #{seattype,jdbcType=INTEGER},
+      </if>
+      <if test="kmprice != null" >
+        #{kmprice,jdbcType=INTEGER},
+      </if>
+      <if test="trainid != null" >
+        #{trainid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dbsd6th.entity.Seat" >
+    update seat
+    <set >
+      <if test="seatstatus != null" >
+        seatStatus = #{seatstatus,jdbcType=INTEGER},
+      </if>
+      <if test="seattype != null" >
+        seatType = #{seattype,jdbcType=INTEGER},
+      </if>
+      <if test="kmprice != null" >
+        kmPrice = #{kmprice,jdbcType=INTEGER},
+      </if>
+      <if test="trainid != null" >
+        trainId = #{trainid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where seatId = #{seatid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dbsd6th.entity.Seat" >
+    update seat
+    set seatStatus = #{seatstatus,jdbcType=INTEGER},
+      seatType = #{seattype,jdbcType=INTEGER},
+      kmPrice = #{kmprice,jdbcType=INTEGER},
+      trainId = #{trainid,jdbcType=VARCHAR}
+    where seatId = #{seatid,jdbcType=INTEGER}
+  </update>
+
+</mapper>

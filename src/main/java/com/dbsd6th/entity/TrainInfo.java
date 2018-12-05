@@ -11,8 +11,26 @@ public class TrainInfo {
     private String trainNum;
     private String chufazhan;
     private String mudizhan;
+    private int routeSeq1;
+    private int routeSeq2;
     private Date departureTime;
     private Date arriveTime;
+
+    public int getRouteSeq1() {
+        return routeSeq1;
+    }
+
+    public void setRouteSeq1(int routeSeq1) {
+        this.routeSeq1 = routeSeq1;
+    }
+
+    public int getRouteSeq2() {
+        return routeSeq2;
+    }
+
+    public void setRouteSeq2(int routeSeq2) {
+        this.routeSeq2 = routeSeq2;
+    }
 
     public int getTrainId() {
         return trainId;
@@ -64,13 +82,15 @@ public class TrainInfo {
 
     @Override
     public String toString() {
-        return "TrainInfo{" +
-                "trainId=" + trainId +
-                ", trainNum='" + trainNum + '\'' +
-                ", chufazhan='" + chufazhan + '\'' +
-                ", mudizhan='" + mudizhan + '\'' +
-                ", departureTime=" + departureTime +
-                ", arriveTime=" + arriveTime +
+        return "车次信息{" +
+                "列车Id=" + trainId +
+                ", 列车号='" + trainNum + '\'' +
+                ", 出发站='" + chufazhan + '\'' +
+                ", 出发站序号='" + routeSeq1 + '\'' +
+                ", 目的站='" + mudizhan + '\'' +
+                ", 目的站序号='" + routeSeq2 + '\'' +
+                ", 出发时间=" + departureTime +
+                ", 到达时间=" + arriveTime +
                 '}';
     }
 }

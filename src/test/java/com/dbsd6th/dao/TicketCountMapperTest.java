@@ -1,6 +1,7 @@
 package com.dbsd6th.dao;
 
 import com.dbsd6th.entity.TicketCount;
+import com.dbsd6th.entity.TrainInfo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author hjs
@@ -29,6 +31,7 @@ public class TicketCountMapperTest {
 
         ticketCountMapper = applicationContext.getBean(TicketCountMapper.class);
         //在这里导入要测试的
+
     }
 
     @After
@@ -48,7 +51,8 @@ public class TicketCountMapperTest {
         }
     }
 
-    @Test public void searchTicket() throws Exception {
+    @Test
+    public void searchTicket() throws Exception {
         SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
         Date sTime = adf.parse("2019-01-01");
         Date eTime = adf.parse("2019-01-02");
@@ -61,4 +65,41 @@ public class TicketCountMapperTest {
         TicketCount ticketCount = ticketCountMapper.searchTicket(input);
         System.out.println(ticketCount);
     }
+
+    @Test
+    public void minusBySeatLevel() throws Exception{
+        SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
+        Date sTime = adf.parse("2019-01-01");
+        /*Date eTime = adf.parse("2019-01-02");*/
+
+        HashMap<String, Object> input = new HashMap<String, Object>();
+        input.put("sTime",sTime);
+        /*input.put("eTime",eTime);*/
+
+        input.put("tid", new Integer(1));
+        /*TicketCount ticketCount = this.ticketCountMapper.searchTicket(input);*/
+        /*int nowNum = ticketCount.getStandRemain();*/
+        /* input.put("nowNum",new Integer(nowNum));*/
+        input.put("level","second_remain");//选择二等座
+        int result = this.ticketCountMapper.minusBySeatLevel(input);
+        if(result==1){
+            System.out.println("购票成功！");
+        }else{
+            System.out.println("购票失败！");
+        }
+
+        /*时间转换测试*/
+        /*Date time = ticketCount.getOrderTime();
+        System.out.println(time);
+        String s = adf.format(time);
+        Date time2 = adf.parse(s);
+        System.out.println(time2);
+        System.out.println(sTime);*/
+
+    }
+
+
+
+    /*应该把ticket_Count表的所有剩余座位类型改为varchar？*/
+
 }
