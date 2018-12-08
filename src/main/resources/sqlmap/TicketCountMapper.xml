@@ -215,5 +215,12 @@
     where train_id = #{tid,jdbcType=INTEGER} and date (order_time)=#{sTime,jdbcType=DATE}
   </update>
 
+  <update id="addByOrderTicket" parameterType="java.util.HashMap">
+    update ticket_count
+    set  ticket_remain = ticket_remain + 1,
+         ${level} = ${level} + 1
+    where train_id = #{tid,jdbcType=INTEGER} and id = #{ticketid,jdbcType=INTEGER}
+  </update>
+
 </mapper>
 

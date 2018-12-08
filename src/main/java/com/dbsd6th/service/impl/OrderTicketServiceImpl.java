@@ -1,9 +1,6 @@
 package com.dbsd6th.service.impl;
 
-import com.dbsd6th.dao.OrderTicketMapper;
-import com.dbsd6th.dao.RouteMapper;
-import com.dbsd6th.dao.SeatTypeMapper;
-import com.dbsd6th.dao.TicketCountMapper;
+import com.dbsd6th.dao.*;
 import com.dbsd6th.entity.*;
 import com.dbsd6th.service.OrderTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,11 +31,17 @@ public class OrderTicketServiceImpl implements OrderTicketService {
     private RouteMapper routeMapper;
     @Autowired
     private SeatTypeMapper seatTypeMapper;
+    @Autowired
+    private TrainMapper trainMapper;
 
 
-
-
-    //购票（由于座位表还有待确定，不产生具体座位信息）
+    /**用户购票功能（由于座位表还有待确定，不产生具体座位信息）
+     *
+     * @param level  座位类型
+     * @param trainAndTicket  用户选中的车次余票信息
+     * @param user 当前使用用户
+     * @return    返回成功与否的标志
+     */
     public boolean buyTrainTicket(String level,TrainAndTicket trainAndTicket,User user) {
         Boolean isSuccess = false;//初始结果为购买失败
 
@@ -103,11 +107,191 @@ public class OrderTicketServiceImpl implements OrderTicketService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return isSuccess;
         }
     }
 
 
+    /**用户查询的所有历史订单
+     *
+     * @param user  当前使用用户
+     * @return  返回历史订单（订票与退票）列表
+     */
+    public ArrayList<HashMap<String,Object>> searchHistoryRecord(User user) {
+        ArrayList<HashMap<String,Object>> hashMapArrayList = new ArrayList<HashMap<String, Object>>();
+        ArrayList<OrderTicket> lists = this.orderTicketMapper.searchHistoryRecord(user.getId());//获得当前用户所有orderTicket
+        if(lists == null){
+            System.out.println("您的历史订票与退票记录为空！");
+        }else{
+            for (int i = 0; i < lists.size(); i++) {
+                HashMap<String,Object> input = new HashMap<String, Object>();
+                Route chufazhan = this.routeMapper.getStationMessage(lists.get(i).getTrainId(),lists.get(i).getDepatureRouteId());//获得出发站信息
+                Route mudizhan = this.routeMapper.getStationMessage(lists.get(i).getTrainId(),lists.get(i).getArriveRouteId());//获得目的站信息
+                Date chufashijian = chufazhan.getDepartureTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timestr = sdf.format(chufashijian);
+                String trainNum = this.trainMapper.selectByPrimaryKey(lists.get(i).getTrainId()).getTrainNum();
+                String seatType = lists.get(i).getSeatType();
+                if (seatType.equals("stand_remain"))
+                    seatType = "无座";
+                else if (seatType.equals("second_remain"))
+                    seatType = "二等座";
+                else if (seatType.equals("first_remain"))
+                    seatType = "一等座";
+                else if (seatType.equals("business_remain"))
+                    seatType = "商务座";
+                else if (seatType.equals("soft_sleeper_remain"))
+                    seatType = "软卧";
+                else if (seatType.equals("advanced_soft_remain"))
+                    seatType = "高级软卧";
+                else if (seatType.equals("highspeed_sleeper_remain"))
+                    seatType = "动卧";
+                else if (seatType.equals("hard_sleeper_remain"))
+                    seatType = "硬卧";
+                else if (seatType.equals("soft_remain"))
+                    seatType = "软座";
+                else if (seatType.equals("hard_remain"))
+                    seatType = "硬座";
 
+                /*由于数据库表设计得可能不太合理，所以在这里只能这样子处理，把座位类型的判断在后台写死，然后可以
+                  将字段进行转化方便用户查看，另外本来想用switch case，但是表达式不支持字符串类型......以此记录*/
+                input.put("姓名",user.getUserName());//真实姓名
+                input.put("身份证号",user.getIdentityNum());//身份证
+                input.put("列车号",trainNum);//列车号
+                input.put("出发站",chufazhan.getStationName());//出发站
+                input.put("目的站",mudizhan.getStationName());//目的站
+                input.put("出发时间",timestr);//出发时间
+                input.put("座位类型",seatType);//座位类型
+                input.put("票价",lists.get(i).getTicketPrice());//票价
+                if(lists.get(i).getEffect()==1)
+                    input.put("是否生效","订购成功");
+                else
+                    input.put("是否生效","退票成功");
+                hashMapArrayList.add(input);
+            }
+        }
+        return hashMapArrayList;
+    }
+
+
+    //查询当前用户的所有订购生效的历史订单
+    public ArrayList<HashMap<String,Object>> searchNeedRefundRecord(User user) {
+        ArrayList<HashMap<String,Object>> hashMapArrayList = new ArrayList<HashMap<String, Object>>();
+        ArrayList<OrderTicket> lists = this.orderTicketMapper.searchNeedRefundRecord(user.getId());
+        if(lists == null){
+            System.out.println("您的订票记录为空！");
+        }else{
+            for (int i = 0; i < lists.size(); i++) {
+                HashMap<String,Object> input = new HashMap<String, Object>();
+                Route chufazhan = this.routeMapper.getStationMessage(lists.get(i).getTrainId(),lists.get(i).getDepatureRouteId());//获得出发站信息
+                Route mudizhan = this.routeMapper.getStationMessage(lists.get(i).getTrainId(),lists.get(i).getArriveRouteId());//获得目的站信息
+                Date chufashijian = chufazhan.getDepartureTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timestr = sdf.format(chufashijian);
+                String trainNum = this.trainMapper.selectByPrimaryKey(lists.get(i).getTrainId()).getTrainNum();
+                String seatType = lists.get(i).getSeatType();
+                if (seatType.equals("stand_remain"))
+                    seatType = "无座";
+                else if (seatType.equals("second_remain"))
+                    seatType = "二等座";
+                else if (seatType.equals("first_remain"))
+                    seatType = "一等座";
+                else if (seatType.equals("business_remain"))
+                    seatType = "商务座";
+                else if (seatType.equals("soft_sleeper_remain"))
+                    seatType = "软卧";
+                else if (seatType.equals("advanced_soft_remain"))
+                    seatType = "高级软卧";
+                else if (seatType.equals("highspeed_sleeper_remain"))
+                    seatType = "动卧";
+                else if (seatType.equals("hard_sleeper_remain"))
+                    seatType = "硬卧";
+                else if (seatType.equals("soft_remain"))
+                    seatType = "软座";
+                else if (seatType.equals("hard_remain"))
+                    seatType = "硬座";
+                input.put("订单号",lists.get(i).getId());
+                input.put("姓名",user.getUserName());//真实姓名
+                input.put("身份证号",user.getIdentityNum());//身份证
+                input.put("列车id",lists.get(i).getTrainId());//列车id
+                input.put("列车号",trainNum);//列车号
+                input.put("出发站",chufazhan.getStationName());//出发站
+                input.put("目的站",mudizhan.getStationName());//目的站
+                input.put("出发时间",timestr);//出发时间
+                input.put("座位类型",seatType);//座位类型
+                input.put("票价",lists.get(i).getTicketPrice());//票价
+                input.put("票号",lists.get(i).getTicketId());//票号
+                Date now = new Date();//获取当前系统时间
+                int judge = now.compareTo(chufashijian);//当前时间与该车次的出发时间进行比较
+                String str = "未发车";
+                if(judge >= 0){ //当前时间已经过了出发时间
+                     str = "已发车";
+                }
+                input.put("是否过期",str);
+                hashMapArrayList.add(input);
+            }
+        }
+        return hashMapArrayList;
+    }
+
+
+    /** 用户退票功能
+     *
+     * @param input  用户经过“searchNeedRefundRecord(User user)”后获得的所有生效订票信息列表中选择的一条记录
+     * @param user         当前的使用用户
+     * @return             退票结果信息
+     */
+    public boolean refundTrainTicket(HashMap<String,Object> input,User user) {
+        Boolean isSuccess = false;//初始退票结果为失败
+        if(input == null){
+            System.out.println("没有订购记录，所以没有退票操作");
+            return isSuccess;//没有订购记录，所以没有退票操作
+        }else if(input.get("是否过期").equals("已发车")){
+            System.out.println("已经发车的车次不能退票");
+            return isSuccess;//已经发车的车次不能退票
+        }else{
+            //先进行对订单记录的effect置为无效
+            int flag = this.orderTicketMapper.updateTicketEffect((Integer)input.get("订单号"));
+            if(flag != 1) {
+                System.out.println("effect转换失败");
+                return isSuccess;//effect转换失败
+            }else{
+                //再进行退票操作
+                HashMap<String,Object> data = new HashMap<String, Object>();
+                String seatType = (String) input.get("座位类型");
+                if (seatType.equals("无座"))
+                    seatType = "stand_remain";
+                else if (seatType.equals("二等座"))
+                    seatType = "second_remain";
+                else if (seatType.equals("一等座"))
+                    seatType = "first_remain";
+                else if (seatType.equals("商务座"))
+                    seatType = "business_remain";
+                else if (seatType.equals("软卧"))
+                    seatType = "soft_sleeper_remain";
+                else if (seatType.equals("高级软卧"))
+                    seatType = "advanced_soft_remain";
+                else if (seatType.equals("动卧"))
+                    seatType = "highspeed_sleeper_remain";
+                else if (seatType.equals("硬卧"))
+                    seatType = "hard_sleeper_remain";
+                else if (seatType.equals("软座"))
+                    seatType = "soft_remain";
+                else if (seatType.equals("硬座"))
+                    seatType = "hard_remain";
+                data.put("level",seatType);
+                data.put("tid",input.get("列车id"));
+                data.put("ticketid",input.get("票号"));
+                int flag2 = this.ticketCountMapper.addByOrderTicket(data);
+                if (flag2 != 1){
+                    System.out.println("减票操作失败！");
+                    return isSuccess;
+                }else {
+                    System.out.println("减票操作成功！");
+                    isSuccess = true;
+                    return isSuccess;
+                }
+            }
+        }
+    }
 }
