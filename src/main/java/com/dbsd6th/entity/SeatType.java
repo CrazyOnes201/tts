@@ -22,4 +22,12 @@ public class SeatType {
     public void setPercost(BigDecimal percost) {
         this.percost = percost;
     }
+
+    @Override
+    public String toString() {
+        return "SeatType{" +
+                "seattype='" + seattype + '\'' +
+                ", percost=" + percost +
+                '}';
+    }
 }

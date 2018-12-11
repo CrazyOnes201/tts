@@ -113,4 +113,21 @@ public class OrderTicket {
     public void setEffect(Integer effect) {
         this.effect = effect;
     }
+
+    @Override
+    public String toString() {
+        return "OrderTicket{" +
+                "订单id=" + id +
+                ", 订购时间=" + orderTime +
+                ", 列车id=" + trainId +
+                ", 票价=" + ticketPrice +
+                ", 座位号=" + seatId +
+                ", 座位类型='" + seatType + '\'' +
+                ", 用户编号=" + userId +
+                ", ticketId=" + ticketId +
+                ", arriveRouteId=" + arriveRouteId +
+                ", depatureRouteId=" + depatureRouteId +
+                ", 是否生效=" + effect +
+                '}';
+    }
 }

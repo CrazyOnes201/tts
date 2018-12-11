@@ -1,7 +1,9 @@
 package com.dbsd6th.dao;
 
 import com.dbsd6th.entity.Train;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TrainMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,5 @@ public interface TrainMapper {
     int updateByPrimaryKeySelective(Train record);
 
     int updateByPrimaryKey(Train record);
+
 }

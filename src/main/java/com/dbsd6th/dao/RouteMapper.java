@@ -55,6 +55,9 @@ public interface RouteMapper {
     /*根据列车Id，出发站在该路线的序号 以及 目的站在该路线的序号 获得路线列表*/
     public List<Route> getRouteListForCount(int trainId,int routeSeq1,int routeSeq2);
 
+    /*根据列车Id，站点在该路线的序号获得 该路线的该站点信息*/
+    public Route getStationMessage(int trainId,int routeSeq);
+
 
 
 }

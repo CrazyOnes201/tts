@@ -159,6 +159,29 @@
       arrive_route_id = #{arriveRouteId,jdbcType=INTEGER},
       depature_route_id = #{depatureRouteId,jdbcType=INTEGER},
       effect = #{effect,jdbcType=INTEGER}
+    where id = #{id,jdbcType = INTEGER}
+  </update>
+
+  <update id="updateTicketEffect" parameterType="java.lang.Integer">
+    update order_ticket
+    set effect = 0
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="searchHistoryRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from order_ticket
+    where user_id = #{userid,jdbcType=INTEGER}
+    order by order_time desc
+  </select>
+
+  <select id="searchNeedRefundRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from order_ticket
+    where user_id = #{userid,jdbcType=INTEGER} and effect = 1
+    order by order_time desc
+  </select>
 </mapper>

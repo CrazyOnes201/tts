@@ -232,4 +232,12 @@
       arrive_time = #{arriveTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getStationMessage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from route
+    where train_id = #{0} and route_seq = #{1}
+  </select>
+
 </mapper>

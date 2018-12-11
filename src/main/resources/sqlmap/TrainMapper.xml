@@ -139,4 +139,5 @@
       train_num = #{trainNum,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

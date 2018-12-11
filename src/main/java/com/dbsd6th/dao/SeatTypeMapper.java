@@ -1,9 +1,11 @@
 package com.dbsd6th.dao;
 
 import com.dbsd6th.entity.SeatType;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 
+@Repository
 public interface SeatTypeMapper {
     int deleteByPrimaryKey(String seattype);
 

@@ -28,6 +28,9 @@ public interface TicketCountMapper {
     /*选择座位类型(总票数-1，座位类型票数-1)*/
     int minusBySeatLevel(HashMap<String, Object> condition);
 
+    /*将ticket_count表相应记录的(总票数+1,座位类型票数+1*/
+    int addByOrderTicket(HashMap<String,Object> condition);
+
 
 
 }
