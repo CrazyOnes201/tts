@@ -20,9 +20,9 @@ public class RouteServiceImpl implements RouteService {
     private RouteMapper routeMapper;
 
     /*高级查询4：中转站查询算法的具体实现(只中转一次)*/
-    public List<List<Route>> findTransferStation(String chufazhan, String mudizhan, Date chufashijian) {
-        List<Route> cfzRouteList = (List<Route>)this.routeMapper.selectTransferStation(chufazhan , mudizhan , chufashijian);//出发站的route表
-        List<Route> mdzRouteList = (List<Route>)this.routeMapper.selectTransferStation(mudizhan , chufazhan , chufashijian);//目的站的route表
+    public List<List<Route>> findTransferStation(String chufazhan, String mudizhan) {
+        List<Route> cfzRouteList = (List<Route>)this.routeMapper.selectTransferStation(chufazhan , mudizhan);//出发站的route表
+        List<Route> mdzRouteList = (List<Route>)this.routeMapper.selectTransferStation(mudizhan , chufazhan);//目的站的route表
         int length1 = cfzRouteList.size();//出发站表长度
         int length2 = mdzRouteList.size();//目的站表长度
         List<Route> cfzRouteResult = new ArrayList<Route>();//出发站到中转站的路线信息

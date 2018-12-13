@@ -62,10 +62,10 @@ public class OrderTicketServiceImplTest {
             if (user == null) {
                 System.out.println("user is null！");
             } else {
-                String chufazhan = "杭州"; //用户输入出发站
-                String mudizhan = "上海"; //用户输入目的站
+                String chufazhan = "广州"; //用户输入出发站
+                String mudizhan = "南京"; //用户输入目的站
                 SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
-                Date chufashijian = adf.parse("2019-01-01"); //用户输入出发时间
+                Date chufashijian = adf.parse("2019-01-15"); //用户输入出发时间
                 int flag = 0; //用户选择直达路线查询模式
                 List<TrainAndTicket> lists = this.searchTicketServiceImpl.getTrainAndTicketList(chufazhan, mudizhan, chufashijian, flag);
                 //用户点击查询

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,8 +55,8 @@ public class TicketCountMapperTest {
     @Test
     public void searchTicket() throws Exception {
         SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
-        Date sTime = adf.parse("2019-01-01");
-        Date eTime = adf.parse("2019-01-02");
+        Date sTime = adf.parse("2019-01-15");
+        Date eTime = adf.parse("2019-01-16");
 
         HashMap<String, Object> input = new HashMap<String, Object>();
         input.put("sTime", sTime);
@@ -101,5 +102,36 @@ public class TicketCountMapperTest {
 
 
     /*应该把ticket_Count表的所有剩余座位类型改为varchar？*/
+    @Test
+    /*时间转换测试*/
+    public void dateTest(){
+        SimpleDateFormat adf1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat adf2 = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat adf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date nowTime = new Date();
+
+        String time1 = adf1.format(nowTime);
+        String time2 = adf2.format(nowTime);
+        System.out.println(time1);
+        System.out.println(time2);
+        String time3 = time1+" "+time2;
+
+        try {
+            Date time = adf3.parse(time3);
+            System.out.println(time3);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        /*try {
+
+
+
+            *//*System.out.println(otime);
+            System.out.println(stime);*//*
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+
+    }
 
 }

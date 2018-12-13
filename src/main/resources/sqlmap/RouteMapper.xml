@@ -68,7 +68,6 @@
                           left join route b on a.train_id = b.train_id
     where a.station_name=#{0} and
            b.station_name=#{1} and
-           date(a.departure_time) = #{2} and
            b.route_seq &gt; a.route_seq
   </select>
 
@@ -82,7 +81,7 @@
            train_id not in(
            select train_id from route
            where station_name = #{1}
-    )and  date(departure_time) = #{2}
+    )
   </select>
 
 

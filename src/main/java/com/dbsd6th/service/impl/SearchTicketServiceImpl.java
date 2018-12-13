@@ -10,6 +10,8 @@ import com.dbsd6th.service.SearchTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -40,12 +42,12 @@ public class SearchTicketServiceImpl implements SearchTicketService {
         List<List<Route>> routeList2 = new ArrayList<List<Route>>();//存储“出发站-中转站,中转站-目的站”列表信息
 
         if(flag==1){//中转站路线的车次信息和余票信息整合.
-            routeList2 = this.routeServiceImpl.findTransferStation(chufazhan,mudizhan,chufashijian);
+            routeList2 = this.routeServiceImpl.findTransferStation(chufazhan,mudizhan);
             //有待开发中......
             //......
         }else{//直达路线的车次信息和余票信息整合
 
-            routeList1 =  this.routeMapper.selectByStation(chufazhan,mudizhan,chufashijian);//直达路线车次信息
+            routeList1 =  this.routeMapper.selectByStation(chufazhan,mudizhan);//直达路线车次信息
 
             for (int i = 0; i < routeList1.size(); i++) {
                 TrainAndTicket trainAndTicket = new TrainAndTicket();
@@ -62,8 +64,26 @@ public class SearchTicketServiceImpl implements SearchTicketService {
                 trainInfo.setTrainNum(routeList1.get(i).getTrainNum());
                 trainInfo.setChufazhan(routeList1.get(i).getChufazhan());
                 trainInfo.setMudizhan(routeList1.get(i).getMudizhan());
-                trainInfo.setDepartureTime(routeList1.get(i).getDepartureTime());
-                trainInfo.setArriveTime(routeList1.get(i).getArriveTime());
+
+                //我想问问学长这种日期转换的方式是否会很麻烦......
+                SimpleDateFormat adf1 = new SimpleDateFormat("HH:mm:ss");
+                SimpleDateFormat adf2 = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat adf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String sfm1 = adf1.format(routeList1.get(i).getDepartureTime());//提取出发时间的时分秒
+                String sfm2 = adf1.format(routeList1.get(i).getArriveTime());//提取到达时间的时分秒
+                String nyr = adf2.format(chufashijian);//提取用户输入的年月日
+                String cfsj = nyr+" "+sfm1;//整合出发时间
+                String ddsj = nyr+" "+sfm2;//整合到达时间
+                try {
+                    Date time1 = adf3.parse(cfsj);
+                    Date time2 = adf3.parse(ddsj);
+                    trainInfo.setDepartureTime(time1);
+                    trainInfo.setArriveTime(time2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
                 trainInfo.setRouteSeq1(routeList1.get(i).getRouteSeq1());
                 trainInfo.setRouteSeq2(routeList1.get(i).getRouteSeq2());
 
