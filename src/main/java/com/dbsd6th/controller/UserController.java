@@ -31,6 +31,7 @@ public class UserController {
         return "regist";
     }
 
+    //登录
     @RequestMapping(value = "/login",method=RequestMethod.POST)
     public String login(HttpSession session, @ModelAttribute User user, Model model){
         int flag = this.userService.userLogin(user.getId(),user.getPassword());

@@ -24,24 +24,24 @@ public interface RouteMapper {
 
     /*基本查询---已实现
      * 根据出发站、目的站和出发时间查询车次信息*/
-    public List<TrainInfo> selectByStation(String chufazhan, String mudizhan,Date chufashijian);
+    public List<TrainInfo> selectByStation(String chufazhan, String mudizhan);
 
     /*高级查询1---未实现
-     * 根据出发站、目的站和出发时间查询最短路径的车次信息*/
-    public List<TrainInfo> selectShortestPath(String chufanzhan,String mudizhan,Date chufashijian);
+     * 根据出发站、目的站查询最短路径的车次信息*/
+    public List<TrainInfo> selectShortestPath(String chufazhan,String mudizhan);
 
     /*高级查询2---未实现
-     * 根据出发站、目的站和出发时间查询最便宜路径的车次信息*/
-    public List<TrainInfo> selectCheapestPath(String chufazhan,String mudizhan,Date chufashijian);
+     * 根据出发站、目的站查询最便宜路径的车次信息*/
+    public List<TrainInfo> selectCheapestPath(String chufazhan,String mudizhan);
 
     /*高级查询3----未实现
-     * 根据出发站、目的站和出发时间查询最少时间的车次信息*/
-    public List<TrainInfo> selectLeastTime(String chufazhan,String mudizhan,Date chufashijian);
+     * 根据出发站、目的站查询最少时间的车次信息*/
+    public List<TrainInfo> selectLeastTime(String chufazhan,String mudizhan);
 
     /*高级查询4----已实现
       如果没有出发站和目的站的直达路线，使用中转站查询功能(具体实现在service层,只中转一次)
       子操作1 */
-    public List<Route> selectTransferStation(String chufazhan,String mudizhan,Date chufashijian);
+    public List<Route> selectTransferStation(String chufazhan,String mudizhan);
 
     /*高级查询4----已实现
       子操作2 */

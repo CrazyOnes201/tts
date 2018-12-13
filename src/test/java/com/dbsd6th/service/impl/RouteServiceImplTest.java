@@ -44,9 +44,9 @@ public class RouteServiceImplTest {
             if(routeServiceImpl == null) {
                 System.out.println("routeServiceImpl 为空！");
             }
-            SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
-            Date chufashijian = adf.parse("2019-01-01");
-            List<List<Route>> lists = routeServiceImpl.findTransferStation("深圳","无锡",chufashijian);
+            /*SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
+            Date chufashijian = adf.parse("2019-01-01");*/
+            List<List<Route>> lists = routeServiceImpl.findTransferStation("深圳","无锡");
             System.out.println("从数据库中获得的查询结果为"+(lists.size()/2)+"条");
             for (int i = 0;i < lists.size();i++) {
                 System.out.println(lists.get(i).get(0));
