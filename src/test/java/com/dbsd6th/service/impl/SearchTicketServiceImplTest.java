@@ -48,7 +48,7 @@ public class SearchTicketServiceImplTest {
         SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
         Date chufashijian = adf.parse("2019-01-15");
         ArrayList<TrainAndTicket> resultList = this.searchTicketServiceImpl.getTrainAndTicketList("深圳",
-                "杭州",chufashijian,0);//直达路线余票查询
+                "石家庄",chufashijian,0);//直达路线余票查询
         System.out.println("车次余票信息记录有："+resultList.size());
         for (int i = 0; i < resultList.size(); i++) {
             System.out.println(resultList.get(i));

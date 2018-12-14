@@ -140,4 +140,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+
+
+  <select id="selectByTrainNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from train
+    where train_num = #{trainNum,jdbcType=VARCHAR}
+  </select>
+
 </mapper>
