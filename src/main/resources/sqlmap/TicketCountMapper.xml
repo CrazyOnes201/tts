@@ -222,5 +222,12 @@
     where train_id = #{tid,jdbcType=INTEGER} and id = #{ticketid,jdbcType=INTEGER}
   </update>
 
+  <select id="searchTicket2" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ticket_count
+    where train_id = #{0} and date(order_time) = #{1}
+  </select>
+
 </mapper>
 
