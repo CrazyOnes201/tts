@@ -12,14 +12,14 @@
 <div class="main">
   <div class="denglu">
     <div class="dlk">
-      <s:form action="login" method="post">
+      <s:form action="/login" method="post">
       <table width="292" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
           <td height="76" colspan="3"style="font-size:24px;text-align:center;color:black ">用户登陆</td>
         </tr>
         <tr>
           <td width="65" style="font-size:18px">用户名</td>
-          <td colspan="2"><input name="user.username" type="text" class="dlinput" placeholder="用户/管理员" /></td>
+          <td colspan="2"><input name="user.id" type="text" class="dlinput" placeholder="用户/管理员" /></td>
         </tr>
         <tr>
           <td height="16" colspan="3"></td>

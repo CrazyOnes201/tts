@@ -31,7 +31,7 @@
     </div>
     <div id="navfirst">
         <ul id="menu">
-            <li id="s3"><a href="SearchTicket.jsp" title="车票查询">车票查询</a></li>
+            <li id="s3"><a href="searchTicket.jsp" title="车票查询">车票查询</a></li>
             <li id="s1"><a href="userinfo.jsp" title="个人中心">个人中心</a></li>
             <li id="s2"><a href="login.jsp" title="记账">退出登陆</a></li>
         </ul>
@@ -75,10 +75,19 @@
             <tr>
                 <th>车次</th>
                 <th>起点</th>
-                <th>出发时间</th>
                 <th>终点</th>
+                <th>出发时间</th>
                 <th>到达时间</th>
-                <th>车票</th>
+                <th>特等座/商务座</th>
+                <th>一等座</th>
+                <th>二等座</th>
+                <th>高级软卧</th>
+                <th>软卧</th>
+                <th>动卧</th>
+                <th>硬卧</th>
+                <th>软座</th>
+                <th>硬座</th>
+                <th>无座</th>
                 <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
             </thead>

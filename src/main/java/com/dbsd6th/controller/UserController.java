@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 /**
  * @author hjs
@@ -31,23 +33,37 @@ public class UserController {
         return "regist";
     }
 
-    //登录
+    /**
+     * 登录接口
+     * @author CrazyWalker
+     * @param session http session
+     * @param userData 传入的登陆信息 loginname:手机号或邮箱  password:用户密码
+     * @param model 返回model
+     * @return 登陆成功则进入查票页，登陆失败则提示失败
+     */
     @RequestMapping(value = "/login",method=RequestMethod.POST)
-    public String login(HttpSession session, @ModelAttribute User user, Model model){
-        int flag = this.userService.userLogin(user.getId(),user.getPassword());
-        if(flag==0){
-            System.out.println("系统不存在该用户！");
-            model.addAttribute("result","0");
-        }else if(flag==1) {
-            System.out.println("登陆成功！");
-            User getUser = this.userService.selectUser(user.getId());
-            model.addAttribute("result", "1");
-            session.setAttribute("user",getUser);
-        }else{
-            model.addAttribute("result","-1");
-            System.out.println("密码错误，登录失败！");
+    public String login(HttpSession session, @RequestBody HashMap<String, String> userData, Model model){
+        String password = userData.get("password") == null ? "" : userData.get("password");
+        String loginName = userData.get("loginname") == null ? "" : userData.get("loginname");
+        User user = new User();
+        user.setPassword(password);
+        String[] emailString = loginName.split("@");
+        if(emailString.length == 1) {
+            user.setPhone(loginName);
+        } else {
+            user.setEmail(loginName);
         }
-        return "index";
+        User selectUser = userService.userLogin(user);
+        if(selectUser == null){
+            model.addAttribute("result","0");
+            return "tots/login";
+        }else {
+            model.addAttribute("result", "1");
+            selectUser.setIdentityNum("");
+            session.setAttribute("user", selectUser);
+            return "tots/searchTicket";
+        }
+
     }
 
 }

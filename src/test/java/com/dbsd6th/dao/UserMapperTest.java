@@ -50,4 +50,13 @@ public class UserMapperTest {
         System.out.println(user);
 
     }
+
+    @Test
+    public void selectByEmailOrPhone() {
+        User user = new User();
+        user.setPhone("18100172238");
+
+        User selectUser = userMapper.selectByEmailOrPhone(user);
+        System.out.println(selectUser);
+    }
 }

@@ -29,7 +29,7 @@
     </div>
     <div id="navfirst">
         <ul id="menu">
-            <li id="s3"><a href="SearchTicket.jsp" title="车票查询">车票查询</a></li>
+            <li id="s3"><a href="searchTicket.jsp" title="车票查询">车票查询</a></li>
             <li id="s1"><a href="userinfo.jsp" title="个人中心">个人中心</a></li>
             <li id="s2"><a href="login.jsp" title="记账">退出登陆</a></li>
         </ul>

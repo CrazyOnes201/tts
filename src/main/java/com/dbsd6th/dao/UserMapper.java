@@ -40,4 +40,5 @@ public interface UserMapper {
     我现在想对他进行更新record(id=1,name=lxf123,password=null)，执行函数，
     那么数据库里的记录将变为User(id=1,name=lxf123,password=null)
     */
+    User selectByEmailOrPhone(User user);
 }
