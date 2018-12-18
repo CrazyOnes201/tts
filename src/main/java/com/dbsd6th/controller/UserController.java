@@ -5,10 +5,8 @@ import com.dbsd6th.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
@@ -37,14 +35,14 @@ public class UserController {
      * 登录接口
      * @author CrazyWalker
      * @param session http session
-     * @param userData 传入的登陆信息 loginname:手机号或邮箱  password:用户密码
+     * @param loginName 传入的登陆信息 手机号或邮箱
+     * @param password 传入的登陆信息 用户密码
      * @param model 返回model
      * @return 登陆成功则进入查票页，登陆失败则提示失败
      */
     @RequestMapping(value = "/login",method=RequestMethod.POST)
-    public String login(HttpSession session, @RequestBody HashMap<String, String> userData, Model model){
-        String password = userData.get("password") == null ? "" : userData.get("password");
-        String loginName = userData.get("loginname") == null ? "" : userData.get("loginname");
+    public String login(HttpSession session, @RequestParam("loginname") String loginName,
+                        @RequestParam("password") String password, Model model){
         User user = new User();
         user.setPassword(password);
         String[] emailString = loginName.split("@");
@@ -54,6 +52,7 @@ public class UserController {
             user.setEmail(loginName);
         }
         User selectUser = userService.userLogin(user);
+        selectUser = selectUser.getPassword().equals(user.getPassword()) ? selectUser : null;
         if(selectUser == null){
             model.addAttribute("result","0");
             return "tots/login";

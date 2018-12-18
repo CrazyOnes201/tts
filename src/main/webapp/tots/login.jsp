@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,16 +18,23 @@
         <tr>
           <td height="76" colspan="3"style="font-size:24px;text-align:center;color:black ">用户登陆</td>
         </tr>
+        <c:if test="${result eq 0}">
+        <tr>
+          <td colspan="3">
+            <h3 style="color: #96180e;">用户名或密码错误，请重新输入</h3>
+          </td>
+        </tr>
+        </c:if>
         <tr>
           <td width="65" style="font-size:18px">用户名</td>
-          <td colspan="2"><input name="user.id" type="text" class="dlinput" placeholder="用户/管理员" /></td>
+          <td colspan="2"><input name="loginname" type="text" class="dlinput" placeholder="用户/管理员" /></td>
         </tr>
         <tr>
           <td height="16" colspan="3"></td>
         </tr>
         <tr>
           <td style="font-size:18px">密码</td>
-          <td colspan="2"><input name="user.password" type="password" class="dlinput" /></td>
+          <td colspan="2"><input name="password" type="password" class="dlinput" /></td>
         </tr>
         <tr>
           <td height="16" colspan="3"></td>
@@ -55,4 +63,29 @@
   </div>
 </div>
 </body>
+<script src="js/jquery.min.js"></script>
+<script type="javascript">
+    /**
+     * 常规ajax请求
+     * @param url 请求url
+     * @param data 请求所需数据
+     * @param callback 回调函数
+     */
+    function generalRequest(url, data, callback) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            dataType: "json",
+            success: function(result) {
+                callback == null ? "" : callback(result);
+            },
+            error: function(xhr) {
+                alert("发生未知错误" + xhr.status + " " + xhr.statusText);
+            }
+        });
+    }
+
+
+</script>
 </html>
