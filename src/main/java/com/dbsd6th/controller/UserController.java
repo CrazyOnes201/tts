@@ -2,6 +2,7 @@ package com.dbsd6th.controller;
 
 import com.dbsd6th.entity.User;
 import com.dbsd6th.service.UserService;
+import com.dbsd6th.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,6 +76,29 @@ public class UserController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "/tots/login";
+    }
+
+    @RequestMapping(path = "/operateUser", method = RequestMethod.POST)
+    public String operateUser(String userName, String password, String phone,
+                              String identityNum, String email, String operationType) {
+        if(StringUtil.isEmpty(identityNum)) {
+            return "/admin/form-amazeui";
+        }
+        User user = new User();
+        user.setUserName(userName.equals("") ? null : userName);
+        user.setPhone(phone.equals("") ? null : phone);
+        user.setPassword(password.equals("") ? null : password);
+        user.setIdentityNum(identityNum);
+        user.setEmail(email.equals("") ? null : email);
+        if (operationType.equals("a")) {
+            userService.userRegist(user);
+        } else if (operationType.equals("b")) {
+            userService.updateUserByIdentityNum(user);
+        } else {
+            userService.deleteUserByIdentityNum(user.getIdentityNum());
+        }
+
+        return "/admin/form-amazeui";
     }
 
 }

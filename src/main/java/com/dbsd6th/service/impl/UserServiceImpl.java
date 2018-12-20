@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    public void updateUserByIdentityNum(User user) {
+        userMapper.updateByIdentityNumSelective(user);
+    }
 
-
+    public void deleteUserByIdentityNum(String identityNum) {
+        userMapper.deleteUserByIdentityNum(identityNum);
+    }
 }

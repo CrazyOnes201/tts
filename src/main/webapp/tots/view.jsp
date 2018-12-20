@@ -43,10 +43,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</td>
       </tr>
       <tr>
-        <td height="38"><div align="center">真实姓名:</div></td>
+        <td height="38"><div align="center">身份证号:</div></td>
         <td>
 			<div align="center">
-          		<input name="realName" type="text" id="xingbin" size="20" value="${user.realName}">
+          		<input name="identityNum" type="text" id="xingbin" size="20" value="${user.identityNum}">
         	</div>
 		</td>
       </tr>
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td height="38"><div align="center">性 &nbsp;&nbsp;&nbsp;别:</div></td> 
         <td>
 			<div align="center">
-				<input name="gender" type="text" id="xinbie" size="20" value="${user.gender}">          
+				<input name="gender" type="text" id="xinbie" size="20" value="">
             </div>
 		</td>
       </tr>
@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td height="38"><div align="center">电话号码:</div></td>
         <td>
 			<div align="center">
-          		<input name="tel" type="text" id="zhengjian" size="20" value="${user.tel}">
+          		<input name="tel" type="text" id="zhengjian" size="20" value="${user.phone}">
         	</div>
 		</td>
       </tr>

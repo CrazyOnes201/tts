@@ -20,6 +20,7 @@ public interface UserService {
 
     public User deleteUser(Integer userid);
 
+    void updateUserByIdentityNum(User user);
 
-
+    void deleteUserByIdentityNum(String identityNum);
 }

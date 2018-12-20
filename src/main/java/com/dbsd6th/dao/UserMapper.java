@@ -41,4 +41,8 @@ public interface UserMapper {
     那么数据库里的记录将变为User(id=1,name=lxf123,password=null)
     */
     User selectByEmailOrPhone(User user);
+
+    int updateByIdentityNumSelective(User user);
+
+    int deleteUserByIdentityNum(String identityNum);
 }

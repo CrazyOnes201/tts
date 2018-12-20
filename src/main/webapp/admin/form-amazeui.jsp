@@ -40,41 +40,46 @@
 </div>
 <div class="contain">
     <div class="traintable">
-        <form class="sui-form form-horizontal sui-validate" action="updateuser" method="post">
+        <form class="sui-form form-horizontal sui-validate" action="/operateUser" method="post">
             <div class="control-group">
                 <label class="control-label" for="user-name">用户名：</label>
                 <div class="controls">
-                    <input  id="user-name" type="text" placeholder="请输入用户名" name="user.username">
+                    <input  id="user-name" type="text" placeholder="请输入用户名" name="userName">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPassword">密码：</label>
                 <div class="controls">
-                    <input title="密码" id="inputPassword" type="password" placeholder="请输入密码"  name="user.password">
+                    <input title="密码" id="inputPassword" type="password" placeholder="请输入密码"  name="password">
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="identitynum">身份证号：</label>
                 <div class="controls">
-                    <input id="identitynum" type="text" placeholder="请输入身份证号" name="user.IdentityNum">
+                    <input id="identitynum" type="text" placeholder="请输入身份证号" name="identityNum">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="user-phone">手机号：</label>
                 <div class="controls">
-                    <input id="user-phone" type="text" placeholder="请输入手机号" name="user.phone">
+                    <input id="user-phone" type="text" placeholder="请输入手机号" name="phone">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="user-email">邮箱：</label>
+                <div class="controls">
+                    <input id="user-email" type="text" placeholder="请输入邮箱" name="email">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputGender">类型：</label>
                 <div class="controls"><span class="sui-dropdown dropdown-bordered select"><span class="dropdown-inner"><a class="dropdown-toggle" role="button" href="#" data-toggle="dropdown">
-            <input type="hidden" data-rules="required" name="operation_type"><i class="caret"></i><span>请选择</span></a>
+            <input type="hidden" data-rules="required" name="operationType"><i class="caret"></i><span>请选择</span></a>
           <ul class="sui-dropdown-menu" id="menu4" role="menu" aria-labelledby="drop4">
             <li role="presentation"><a tabindex="-1" role="menuitem" href="javascript:void(0);" value="a">增加</a></li>
-            <li role="presentation"><a tabindex="-1" role="menuitem" href="javascript:void(0);" value="b">删除</a></li>
-              <li role="presentation"><a tabindex="-1" role="menuitem" href="javascript:void(0);" value="c">修改</a></li>
-              <li role="presentation"><a tabindex="-1" role="menuitem" href="javascript:void(0);" value="d">查找</a></li>
+            <li role="presentation"><a tabindex="-1" role="menuitem" href="javascript:void(0);" value="b">修改</a></li>
+              <li role="presentation"><a tabindex="-1" role="menuitem" href="javascript:void(0);" value="c">删除</a></li>
           </ul></span></span></div>
             </div>
             <div class="control-group">

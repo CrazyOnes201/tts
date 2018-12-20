@@ -37,6 +37,10 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteUserByIdentityNum" parameterType="java.lang.String">
+    delete from user
+    where identity_num = #{identityNum, jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.dbsd6th.entity.User" >
     insert into user (id, user_name, password, 
       identity_num, phone, email, 
@@ -121,5 +125,27 @@
       email = #{email,jdbcType=VARCHAR},
       admin = #{admin,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByIdentityNumSelective" parameterType="com.dbsd6th.entity.User">
+    update user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="admin != null" >
+        admin = #{admin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where identity_num = #{identityNum,jdbcType=INTEGER}
   </update>
 </mapper>
