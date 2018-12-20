@@ -31,26 +31,12 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public int userLogin(Integer userid, String password) {
-        User existUser = this.userMapper.selectByPrimaryKey(userid);
-        if (existUser == null) {
-            System.out.println("数据库里没有对应的信息");
-            return 0;
-        } else if (existUser.getPassword().equals(password)){
-
-            System.out.println("成功进行了登录操作");
-            return 1;
-        } else {
-            System.out.println("没有成功进行登录操作");
-            System.out.println("前台传入的密码是"+password);
-            System.out.println("相同id号对应的密码是"+existUser.getPassword());
-            return -1;
-        }
+    public User userLogin(User user) {
+        return userMapper.selectByEmailOrPhone(user);
     }
 
 
     public User selectUser(Integer id) {
-
         return this.userMapper.selectByPrimaryKey(id);
     }
 
@@ -59,6 +45,11 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    public void updateUserByIdentityNum(User user) {
+        userMapper.updateByIdentityNumSelective(user);
+    }
 
-
+    public void deleteUserByIdentityNum(String identityNum) {
+        userMapper.deleteUserByIdentityNum(identityNum);
+    }
 }

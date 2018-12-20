@@ -49,6 +49,14 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectStationCountDistance" resultType="java.lang.Integer">
+    select SUM(next_distance)
+    from route
+    where train_id = #{trainId, jdbcType=INTEGER} and route_seq >= #{startSeq, jdbcType=INTEGER}
+    and #{endSeq, jdbcType=INTEGER} > route_seq
+    group by train_id
+  </select>
+
 
 
   <!--基本查询：根据出发站和目的站以及出发时间查询车次-->

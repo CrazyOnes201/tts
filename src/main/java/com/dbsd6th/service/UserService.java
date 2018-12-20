@@ -14,12 +14,13 @@ import java.util.List;
 public interface UserService {
     public Boolean userRegist(User user);
 
-    public int userLogin(Integer userid,String password);
+    User userLogin(User user);
 
     public User selectUser(Integer userid);
 
     public User deleteUser(Integer userid);
 
+    void updateUserByIdentityNum(User user);
 
-
+    void deleteUserByIdentityNum(String identityNum);
 }

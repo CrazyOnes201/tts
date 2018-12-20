@@ -4,6 +4,7 @@ import com.dbsd6th.entity.SeatType;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Repository
 public interface SeatTypeMapper {
@@ -21,5 +22,5 @@ public interface SeatTypeMapper {
 
     BigDecimal getPercostBySeatType(String seattype);
 
-
+    List<SeatType> selectAllSeatType();
 }

@@ -2,13 +2,12 @@ package com.dbsd6th.service.impl;
 
 import com.dbsd6th.dao.RouteMapper;
 import com.dbsd6th.entity.Route;
+import com.dbsd6th.entity.TrainAndTicket;
 import com.dbsd6th.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author hjs
@@ -48,5 +47,21 @@ public class RouteServiceImpl implements RouteService {
         result.add(cfzRouteResult);
         result.add(mdzRouteResult);
         return result;
+    }
+
+    /**
+     * 计算要购买的车票的行驶距离
+     * @author CrazyWalker
+     * @param trainAndTicket 包含车次和车票信息的实体类
+     * @return 若计算成功则返回对应距离数值，若失败则返回0
+     */
+    public Integer getDistance(TrainAndTicket trainAndTicket) {
+        Map<String, Integer> searchCondition = new HashMap<String, Integer>();
+        searchCondition.put("trainId", trainAndTicket.getTrainInfo().getTrainId());
+        searchCondition.put("startSeq", trainAndTicket.getTrainInfo().getRouteSeq1());
+        searchCondition.put("endSeq", trainAndTicket.getTrainInfo().getRouteSeq2());
+
+        Integer distance = routeMapper.selectStationCountDistance(searchCondition);
+        return distance == null? 0 : distance;
     }
 }

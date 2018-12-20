@@ -11,7 +11,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -96,5 +98,15 @@ public class RouteMapperTest {
         System.out.println(totalDistance);
         System.out.println(new Date());
 
+    }
+
+    @Test
+    public void selectStationCountDistance() {
+        Map<String, Integer> searchCondition = new HashMap<String, Integer>();
+        searchCondition.put("trainId", 1);
+        searchCondition.put("startSeq", 2);
+        searchCondition.put("endSeq", 1);
+
+        System.out.println(routeMapper.selectStationCountDistance(searchCondition));
     }
 }

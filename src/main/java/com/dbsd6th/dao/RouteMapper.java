@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface RouteMapper {
@@ -21,6 +22,8 @@ public interface RouteMapper {
     public int updateByPrimaryKeySelective(Route record);
 
     public int updateByPrimaryKey(Route record);
+
+    Integer selectStationCountDistance(Map<String, Integer> condition);
 
     /*基本查询---已实现
      * 根据出发站、目的站和出发时间查询车次信息*/
