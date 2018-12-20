@@ -13,6 +13,7 @@ public class TrainInfo {
     private String mudizhan;
     private int routeSeq1;
     private int routeSeq2;
+    private int distance;
     private Date departureTime;
     private Date arriveTime;
 
@@ -22,6 +23,14 @@ public class TrainInfo {
 
     public void setRouteSeq1(int routeSeq1) {
         this.routeSeq1 = routeSeq1;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
     public int getRouteSeq2() {

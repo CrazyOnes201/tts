@@ -37,7 +37,7 @@ public class UserMapperTest {
     @Test
     public void insert() throws Exception {
         User user = new User();
-        user.setId(16041321);
+        user.setUserName("ceshi");
         int result = userMapper.insertSelective(user);
         System.out.println(result);
         assert (result == 1);

@@ -21,14 +21,14 @@ public class UserController {
 
 
     //注册
-    @RequestMapping(value = "/regist",method= RequestMethod.POST)
-    public String regist(@ModelAttribute User user, Model model){
+    @RequestMapping(value = "/register",method= RequestMethod.POST)
+    public String regist(@ModelAttribute("user") User user, Model model){
         if(this.userService.userRegist(user)==true){
             System.out.println("注册成功");
         }else{
             System.out.println("注册失败");
         }
-        return "regist";
+        return "/tots/login";
     }
 
     /**
@@ -63,6 +63,24 @@ public class UserController {
             return "tots/searchTicket";
         }
 
+    }
+
+    /**
+     *
+     * @author CrazyWalker
+     * @param session http session
+     * @return 注销成功则返回登陆页面
+     */
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        /*获取session中的用户信息*/
+        User user = (User)session.getAttribute("user");
+        /*若为非空则移除对应用户信息*/
+        if(user != null) {
+            session.removeAttribute("user");
+        }
+
+        return "/tots/login";
     }
 
 }

@@ -63,29 +63,4 @@
   </div>
 </div>
 </body>
-<script src="js/jquery.min.js"></script>
-<script type="javascript">
-    /**
-     * 常规ajax请求
-     * @param url 请求url
-     * @param data 请求所需数据
-     * @param callback 回调函数
-     */
-    function generalRequest(url, data, callback) {
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: data,
-            dataType: "json",
-            success: function(result) {
-                callback == null ? "" : callback(result);
-            },
-            error: function(xhr) {
-                alert("发生未知错误" + xhr.status + " " + xhr.statusText);
-            }
-        });
-    }
-
-
-</script>
 </html>

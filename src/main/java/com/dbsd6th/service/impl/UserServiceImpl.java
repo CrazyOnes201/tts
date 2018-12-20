@@ -32,14 +32,11 @@ public class UserServiceImpl implements UserService {
 
 
     public User userLogin(User user) {
-        user = userMapper.selectByEmailOrPhone(user);
-
-        return user;
+        return userMapper.selectByEmailOrPhone(user);
     }
 
 
     public User selectUser(Integer id) {
-
         return this.userMapper.selectByPrimaryKey(id);
     }
 

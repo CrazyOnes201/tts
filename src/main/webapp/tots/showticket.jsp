@@ -53,15 +53,6 @@
                 <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
             </thead>
-            <%
-                //      Object obj = request.getAttribute("ticketList");
-                //    if (obj !=null) {
-//    List list = (List)obj;
-//    Iterator itm = list.iterator();
-//    TicketBean ticket = null;
-//    while(list!=null && itm.hasNext()) {
-//    ticket = (TicketBean)itm.next();
-            %>
             <tbody>
             <tr>
                 <td >${sessionScope.tarTicket.trainId}</td>

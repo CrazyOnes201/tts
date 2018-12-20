@@ -17,12 +17,12 @@
 		<h2>用户注册</h2>
 	</div>
 
-	<form action="regist" method="post" id="registerForm">
+	<form action="/register" method="post" id="registerForm">
 		<div>
-			<input type="text" name="user.username" class="realname" placeholder="输入真实姓名" autocomplete="off"/>
+			<input type="text" name="userName" class="realname" placeholder="输入真实姓名" autocomplete="off"/>
 		</div>
 		<div>
-			<input type="password" name="user.password" class="password" placeholder="输入密码" oncontextmenu="return false" onpaste="return false" />
+			<input type="password" name="password" class="password" placeholder="输入密码" oncontextmenu="return false" onpaste="return false" />
 		</div>
 		<%--<div>--%>
 			<%--<input type="password" name="confirm_password" class="confirm_password" placeholder="再次输入密码" oncontextmenu="return false" onpaste="return false" />--%>
@@ -31,10 +31,10 @@
 			<%--<input type="text" name="realname" class="" placeholder="" autocomplete="off" />--%>
 		</div>
 		<div>
-			<input type="text" name="user.identityNum" class="idnumber" placeholder="输入二代身份证号" autocomplete="off" />
+			<input type="text" name="identityNum" class="idnumber" placeholder="输入二代身份证号" autocomplete="off" />
 		</div>
 		<div>
-			<input type="text" name="user.phone" class="phone_number" placeholder="输入手机号码" autocomplete="off" id="number"/>
+			<input type="text" name="phone" class="phone_number" placeholder="输入手机号码" autocomplete="off" id="number"/>
 		</div>
 		<%--<div>--%>
 			<%--<input type="email" name="email" class="email" placeholder="输入邮箱地址" oncontextmenu="return false" onpaste="return false" />--%>
