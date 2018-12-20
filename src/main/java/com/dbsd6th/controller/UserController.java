@@ -73,13 +73,7 @@ public class UserController {
      */
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
-        /*获取session中的用户信息*/
-        User user = (User)session.getAttribute("user");
-        /*若为非空则移除对应用户信息*/
-        if(user != null) {
-            session.removeAttribute("user");
-        }
-
+        session.invalidate();
         return "/tots/login";
     }
 

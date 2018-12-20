@@ -28,5 +28,5 @@ public interface OrderTicketService {
     public ArrayList<HashMap<String,Object>> searchNeedRefundRecord(User user);
 
     //用户退票功能
-    public boolean refundTrainTicket(HashMap<String,Object> input,User user);
+    public boolean refundTrainTicket(Integer orderId);
 }

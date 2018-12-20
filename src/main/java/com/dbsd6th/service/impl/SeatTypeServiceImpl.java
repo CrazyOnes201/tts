@@ -2,6 +2,7 @@ package com.dbsd6th.service.impl;
 
 import com.dbsd6th.dao.SeatTypeMapper;
 import com.dbsd6th.entity.SeatType;
+import com.dbsd6th.service.SeatTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,12 @@ import java.util.List;
  * *****************************************
  */
 @Service
-public class SeatTypeServiceImpl {
+public class SeatTypeServiceImpl implements SeatTypeService {
 
     @Autowired
     private SeatTypeMapper seatTypeMapper;
 
-    List<SeatType> getAllSeatType() {
+    public List<SeatType> getAllSeatType() {
         return seatTypeMapper.selectAllSeatType();
     }
 }

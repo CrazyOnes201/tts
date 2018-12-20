@@ -23,22 +23,22 @@
 
 </div><div class="Navigation">
     <div class="left_logo">
-        <img src="images/logo.png" alt="logo" align="left"/>
+        <img src="/tots/images/logo.png" alt="logo" align="left"/>
         <p class="project_name">
             火车订票系统</p>
     </div>
     <div id="navfirst">
         <ul id="menu">
-            <li id="s3"><a href="searchTicket.jsp" title="车票查询">车票查询</a></li>
-            <li id="s1"><a href="userinfo.jsp" title="个人中心">个人中心</a></li>
-            <li id="s2"><a href="login.jsp" title="记账">退出登陆</a></li>
+            <li id="s3"><a href="/tots/searchTicket.jsp" title="车票查询">车票查询</a></li>
+            <li id="s1"><a href="/tots/userinfo.jsp" title="个人中心">个人中心</a></li>
+            <li id="s2"><a href="/logout" title="记账">退出登陆</a></li>
         </ul>
     </div>
 </div>
 <h2 style="text-align:center;">订单查询</h2>
 
 <div class="search">
-    <form id="form-msg" class="sui-form form-horizontal"  action="userticket" method="post">
+    <form id="form-msg" class="sui-form form-horizontal"  action="/getMyTicket" method="post">
         <div id="navfirst" >
             <input type="submit" class="input-middle" value="查询自己的票" style="margin-top: 25px">
         </div>
@@ -49,37 +49,43 @@
         <table class="sui-table table-primary">
             <thead>
             <tr>
-                <th>车次</th>
-                <th>起点</th>
+                <th>姓名</th>
+                <th>身份证号</th>
+                <th>列车号</th>
+                <th>出发站</th>
+                <th>终点站</th>
                 <th>出发时间</th>
-                <th>终点</th>
-                <th>到达时间</th>
-                <th>车票</th>
+                <th>座位类型</th>
+                <th>票价</th>
                 <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
             </thead>
             <tbody>
-            <c:if test="${! empty requestScope.isPostResponse}">
-                <c:choose>
-                    <c:when test="${empty requestScope.usedticketList}">
-                        <td colspan="6" style="text-align:center;">
-                            没有数据 试试<a href="advancedsearch.jsp">高级查询</a>
+                <c:forEach items="${requestScope.userticketList}" var="elem">
+                    <tr>
+                        <td>${elem.userName}</td>
+                        <td>${elem.identityNum}</td>
+                        <td>${elem.trainNum}</td>
+                        <td>${elem.startStation}</td>
+                        <td>${elem.endStation}</td>
+                        <td>${elem.startTime}</td>
+                        <td>${elem.seatName}</td>
+                        <td>${elem.price}</td>
+                        <td>
+                            <c:if test="${elem.isEffect eq 1}">
+                                <form id="form-msg" class="sui-form form-horizontal"  action="/refundTicket" method="post">
+                                    <div id="navfirst" >
+                                        <input type="hidden" name="orderId" value="${elem.orderId}" hidden="hidden"/>
+                                        <input type="submit" class="input-middle" value="退票" style="margin-top: 25px">
+                                    </div>
+                                </form>
+                            </c:if>
+                            <c:if test="${elem.isEffect ne 1}">
+                                已退票
+                            </c:if>
                         </td>
-                    </c:when>
-                    <c:when test="${! empty requestScope.usedticketList}">
-                        <c:forEach items="${requestScope.usedticketList}" var="elemTrain">
-                            <tr>
-                                <td>${elemTrain.trainId}</td>
-                                <td>${elemTrain.startStationId}</td>
-                                <td>${elemTrain.endStationId}</td>
-                                <td>${elemTrain.date}</td>
-                                <td>${elemTrain.level}</td>
-                                <td>${elemTrain.money}</td>
-                            </tr>
-                        </c:forEach>
-                    </c:when>
-                </c:choose>
-            </c:if>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
     </div>

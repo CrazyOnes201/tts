@@ -25,7 +25,7 @@
 
 </div><div class="Navigation">
     <div class="left_logo">
-        <img src="images/logo.png" alt="logo" align="left"/>
+        <img src="/tots/images/logo.png" alt="logo" align="left"/>
         <p class="project_name">
             火车订票系统</p>
     </div>
@@ -33,7 +33,7 @@
         <ul id="menu">
             <li id="s3"><a href="searchTicket.jsp" title="车票查询">车票查询</a></li>
             <li id="s1"><a href="userinfo.jsp" title="个人中心">个人中心</a></li>
-            <li id="s2"><a href="login.jsp" title="记账">退出登陆</a></li>
+            <li id="s2"><a href="/logout" title="记账">退出登陆</a></li>
         </ul>
     </div>
 </div>
@@ -45,7 +45,6 @@
             <thead>
             <tr>
                 <th>车次</th>
-                <th>出发日期</th>
                 <th>起点</th>
                 <th>起始时间</th>
                 <th>终点</th>
@@ -55,12 +54,11 @@
             </thead>
             <tbody>
             <tr>
-                <td >${sessionScope.tarTicket.trainId}</td>
-                <td >${sessionScope.tarTicket.sDate}</td>
-                <td >${sessionScope.tarTicket.beginStation}</td>
-                <td >${sessionScope.tarTicket.beginTime}</td>
-                <td >${sessionScope.tarTicket.targetStation}</td>
-                <td >${sessionScope.tarTicket.targetTime}</td>
+                <td >${sessionScope.tarTat.trainInfo.trainNum}</td>
+                <td >${sessionScope.tarTat.trainInfo.chufazhan}</td>
+                <td >${sessionScope.tarTat.trainInfo.departureTime}</td>
+                <td >${sessionScope.tarTat.trainInfo.mudizhan}</td>
+                <td >${sessionScope.tarTat.trainInfo.arriveTime}</td>
                 <td ></td>
             </tr>
             <%--<% }} %>--%>
@@ -71,7 +69,7 @@
 </div>
 <div class="contain">
     <div class="traintable">
-        <form action="buyoneticket" method="post">
+        <form action="/buyOneTicket" method="post">
         <table class="sui-table table-primary">
             <thead>
             <tr>
@@ -80,13 +78,15 @@
                 <th>金额</th>
                 <th>选择</th>
             </tr>
-            <c:forEach items="${sessionScope.tarTicket.ticketList}" var="elemTicket">
-                <tr>
-                    <td>${elemTicket.level}</td>
-                    <td>${elemTicket.num}</td>
-                    <td>${elemTicket.price}</td>
-                    <td><input type="radio" name="tarLevel1" value="${elemTicket.level}" /></td>
-                </tr>
+            <c:forEach items="${sessionScope.seatFormList}" var="elemTicket">
+                <c:if test="${elemTicket.ticketNum ne 0}">
+                    <tr>
+                        <td>${elemTicket.type}</td>
+                        <td>${elemTicket.ticketNum}</td>
+                        <td>${elemTicket.cost}</td>
+                        <td><input type="radio" name="tarLevel" value="${elemTicket.typeRowName}" /></td>
+                    </tr>
+                </c:if>
             </c:forEach>
             <tr>
                 <td align="right" colspan="4">
@@ -98,39 +98,39 @@
             </thead>
 
 
-        <tbody>
-            <c:if test="${! empty requestScope.isPostResponse}">
-                <c:choose>
-                    <c:when test="${empty sessionScope.tatList}">
-                        <td colspan="6" style="text-align:center;">
-                            没有数据 试试<a href="advancedsearch.jsp">高级查询</a>
-                        </td>
-                    </c:when>
-                    <c:when test="${empty sessionScope.tatList[0].ticketList}">
-                        <td colspan="6" style="text-align:center;">
-                            查询日期车票不能购买
-                        </td>
-                    </c:when>
-                    <c:when test="${! empty sessionScope.tatList}">
-                        <c:forEach items="${sessionScope.tatList}" var="elemTrain" varStatus="status">
-                            <tr>
-                                <td>${elemTrain.trainId}</td>
-                                <td>${elemTrain.beginStation}</td>
-                                <td>${elemTrain.beginTime}</td>
-                                <td>${elemTrain.targetStation}</td>
-                                <td>${elemTrain.targetTime}</td>
-                                <td>
-                                    <c:forEach items="${elemTrain.ticketList}" var="elemTicket">
-                                        ${elemTicket.level}:${elemTicket.num}&nbsp;&nbsp;
-                                    </c:forEach>
-                                </td>
-                                <td><button><a href="buyticket?tarIndex=${status.index}">预定</a></button></td>
-                            </tr>
-                        </c:forEach>
-                    </c:when>
-                </c:choose>
-            </c:if>
-            </tbody>
+        <%--<tbody>--%>
+            <%--<c:if test="${! empty requestScope.isPostResponse}">--%>
+                <%--<c:choose>--%>
+                    <%--<c:when test="${empty sessionScope.tatList}">--%>
+                        <%--<td colspan="6" style="text-align:center;">--%>
+                            <%--没有数据 试试<a href="advancedsearch.jsp">高级查询</a>--%>
+                        <%--</td>--%>
+                    <%--</c:when>--%>
+                    <%--<c:when test="${empty sessionScope.tatList[0].ticketList}">--%>
+                        <%--<td colspan="6" style="text-align:center;">--%>
+                            <%--查询日期车票不能购买--%>
+                        <%--</td>--%>
+                    <%--</c:when>--%>
+                    <%--<c:when test="${! empty sessionScope.tatList}">--%>
+                        <%--<c:forEach items="${sessionScope.tatList}" var="elemTrain" varStatus="status">--%>
+                            <%--<tr>--%>
+                                <%--<td>${elemTrain.trainId}</td>--%>
+                                <%--<td>${elemTrain.beginStation}</td>--%>
+                                <%--<td>${elemTrain.beginTime}</td>--%>
+                                <%--<td>${elemTrain.targetStation}</td>--%>
+                                <%--<td>${elemTrain.targetTime}</td>--%>
+                                <%--<td>--%>
+                                    <%--<c:forEach items="${elemTrain.ticketList}" var="elemTicket">--%>
+                                        <%--${elemTicket.level}:${elemTicket.num}&nbsp;&nbsp;--%>
+                                    <%--</c:forEach>--%>
+                                <%--</td>--%>
+                                <%--<td><button><a href="buyticket?tarIndex=${status.index}">预定</a></button></td>--%>
+                            <%--</tr>--%>
+                        <%--</c:forEach>--%>
+                    <%--</c:when>--%>
+                <%--</c:choose>--%>
+            <%--</c:if>--%>
+            <%--</tbody>--%>
         </table>
         </form>
     </div>
