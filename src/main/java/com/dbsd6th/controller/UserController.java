@@ -53,8 +53,8 @@ public class UserController {
             user.setEmail(loginName);
         }
         User selectUser = userService.userLogin(user);
-        selectUser = selectUser.getPassword().equals(user.getPassword()) ? selectUser : null;
-        if(selectUser == null){
+        if(selectUser == null || selectUser == null ||
+                !selectUser.getPassword().equals(user.getPassword())){
             model.addAttribute("result","0");
             return "tots/login";
         }else {
