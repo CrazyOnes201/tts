@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body background="images/003.jpg">
    <p>&nbsp;</p>
-<p align="center" class="style1">武昌火车站欢迎您！</p>
+<p align="center" class="style1">火车站管理系统欢迎您！</p>
 <hr>
   <form name="form1" method="post" action="">
     <p align="center"><span class="style4">对不起，您不是管理员，无权添加火车信息！&nbsp;</span></p>

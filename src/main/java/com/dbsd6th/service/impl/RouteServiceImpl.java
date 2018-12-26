@@ -26,6 +26,8 @@ public class RouteServiceImpl implements RouteService {
         int length2 = mdzRouteList.size();//目的站表长度
         List<Route> cfzRouteResult = new ArrayList<Route>();//出发站到中转站的路线信息
         List<Route> mdzRouteResult = new ArrayList<Route>();//中转站到目的站的路线信息
+        System.out.println("length1的长度为"+length1);
+        System.out.println("length2的长度为"+length2);
         for (int i = 0; i < length1; i++) {
             Route cfzRouteListElem = cfzRouteList.get(i);
             for (int j = 0; j < length2; j++) {
@@ -40,9 +42,12 @@ public class RouteServiceImpl implements RouteService {
                     cfzRouteResult.add(cfzTransferListElem);
                     mdzRouteResult.add(mdzTransferListElem);
                     mdzRouteResult.add(mdzRouteListElem);
+
                 }
             }
         }
+        System.out.println(cfzRouteResult);
+        System.out.println(mdzRouteResult);
         List<List<Route>> result = new ArrayList<List<Route>>();
         result.add(cfzRouteResult);
         result.add(mdzRouteResult);
@@ -64,4 +69,6 @@ public class RouteServiceImpl implements RouteService {
         Integer distance = routeMapper.selectStationCountDistance(searchCondition);
         return distance == null? 0 : distance;
     }
+
+
 }

@@ -48,7 +48,7 @@ public class RouteMapperTest {
                 System.out.println("route mapper is null!!!!");
             }
 
-              List<TrainInfo> list = routeMapper.selectByStation("深圳", "广州");
+              List<TrainInfo> list = routeMapper.selectByStation("无锡", "沈阳");
               System.out.println("测试：输入出发站、终点站");
               System.out.println("从数据库中获得的查询结果为"+list.size()+"条");
               for (int i = 0;i < list.size();i++) {
@@ -67,7 +67,7 @@ public class RouteMapperTest {
             }
             /*SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
             Date chufashijian = adf.parse("2019-01-01");*/
-            List<Route> list = routeMapper.selectTransferStation("深圳", "广州");
+            List<Route> list = routeMapper.selectTransferStation("深圳", "无锡");
             System.out.println("测试：输入出发站、终点站");
             System.out.println("从数据库中获得的查询结果为"+list.size()+"条");
             for (int i = 0;i < list.size();i++) {

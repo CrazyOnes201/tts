@@ -48,10 +48,22 @@ public class RouteServiceImplTest {
             Date chufashijian = adf.parse("2019-01-01");*/
             List<List<Route>> lists = routeServiceImpl.findTransferStation("深圳","无锡");
             System.out.println("从数据库中获得的查询结果为"+(lists.size()/2)+"条");
-            for (int i = 0;i < lists.size();i++) {
-                System.out.println(lists.get(i).get(0));
-                System.out.println(lists.get(i).get(1));
+          /*  System.out.println(lists.get(0).get(0));
+            System.out.println(lists.get(0).get(1));
+            System.out.println(lists.get(1).get(0));
+            System.out.println(lists.get(1).get(1));
+            System.out.println(lists.get(0).get(2));
+            System.out.println(lists.get(0).get(3));
+            System.out.println(lists.get(1).get(2));
+            System.out.println(lists.get(1).get(3));*/
+            for (int i = 0; i < lists.get(0).size(); i=i+2) {
+                System.out.println(lists.get(0).get(i));
+                System.out.println(lists.get(0).get(i+1));
+                System.out.println(lists.get(1).get(i));
+                System.out.println(lists.get(1).get(i+1));
             }
+
+
 
         }catch(Exception e) {
             e.printStackTrace();
