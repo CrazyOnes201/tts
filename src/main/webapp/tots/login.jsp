@@ -9,7 +9,7 @@
 <title>Login</title>
 </head>
 <body>
-<div id="background" style="position:absolute;z-index:-1;width:100%;height:100%;top:0px;left:0px;"><img src="/tots/images/1.jpg" width="100%" height="100%"/></div>
+<div id="background" style="position:absolute;z-index:-1;width:100%;height:100%;top:0px;left:0px;"><img src="/tots/image/home11.jpg" width="100%" height="100%"/></div>
 <div class="main">
   <div class="denglu">
     <div class="dlk">
@@ -21,7 +21,7 @@
         <c:if test="${result eq 0}">
         <tr>
           <td colspan="3">
-            <h3 style="color: #96180e;">用户名或密码错误，请重新输入</h3>
+            <h3 style="color: #96080d;">用户名或密码错误，请重新输入</h3>
           </td>
         </tr>
         </c:if>
@@ -39,7 +39,7 @@
         <tr>
           <td height="16" colspan="3"></td>
         </tr>
-        
+
         <tr>
           <td height="16" colspan="3"></td>
         </tr>
@@ -52,8 +52,8 @@
           <td colspan="2"><table width="224" border="0" cellspacing="0" cellpadding="0">
             <tr>
 			</br>
-              <td height="24"><a href="#none" class="mm" style="color: blue">忘记登录密码？</a></td>
-              <td align="right"><a href="/tots/register.jsp" class="zc" style="font-size:13px; color:blue" >立即网上注册</a></td>
+              <td height="24"><a href="#none" class="mm" style="color: #4ab3ff">忘记登录密码？</a></td>
+              <td align="right"><a href="/tots/register.jsp" class="zc" style="font-size:13px; color:#4ab3ff" >立即网上注册</a></td>
             </tr>
             <br>
           </table></s:form></td>
